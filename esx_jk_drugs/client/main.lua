@@ -584,6 +584,8 @@ AddEventHandler('esx_drugs:selling', function()
 
         local playerPed = PlayerPedId()
         PedPosition        = GetEntityCoords(playerPed)
+        local PlayerCoords = { x = PedPosition.x, y = PedPosition.y, z = PedPosition.z }
+        
         local x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
         local plyPos = GetEntityCoords(GetPlayerPed(-1),  true)
         local streetName, crossing = Citizen.InvokeNative( 0x2EB41072B4C1E4C0, plyPos.x, plyPos.y, plyPos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt() )
