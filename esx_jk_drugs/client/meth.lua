@@ -44,7 +44,7 @@ Citizen.CreateThread(function()
 
 		if GetDistanceBetweenCoords(coords, Config.DumpZones.MethDump.coords, true) < 1 then
 			if not menuOpen2 then
-				ESX.ShowHelpNotification("Press [E] to give your meth to Willie")
+				ESX.ShowHelpNotification(_U('meth_sell'))
 
 				if IsControlJustReleased(0, Keys['E']) then
 					wasOpen2 = true

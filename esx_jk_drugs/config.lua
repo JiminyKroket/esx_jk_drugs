@@ -11,8 +11,9 @@ Config.ShowMarkers 	= false -- Ehh, hopefully self explanatory... but if not it 
 --Cop Stuff--
 Config.GiveBlack = true -- Disable to give regular cash when selling drugs
 Config.ForceMulti	= false -- Force sellers to have to open the menu after every deal (chance to send notification)
-Config.EnableCops   = false -- Set true to send police notification (uses esx_phone)
-Config.RequireCops	= false -- Requires Police online to sell drugs
+Config.EnableCops   = true -- Set true to send police notification (uses esx_phone)
+Config.UseGCPhone		= true -- Use GCphone instead of esx_phone
+Config.RequireCops	= true -- Requires Police online to sell drugs
 Config.RequiredCopsCoke  = 1
 Config.RequiredCopsMeth  = 1
 Config.RequiredCopsWeed  = 1
@@ -65,8 +66,8 @@ Config.HeroineDumpItems = {
 }
 
 Config.FieldZones = {
-	WeedField = {coords = vector3(2224.2, 5566.53, 54.06)},	
-	CocaineField = {coords = vector3(1849.8, 4914.2, 44.92)},	
+	WeedField = {coords = vector3(2224.2, 5566.53, 54.06)},
+	CocaineField = {coords = vector3(1849.8, 4914.2, 44.92)},
 	EphedrineField = {coords = vector3(1591.18, -1982.81, 95.12)},
 	PoppyField = {coords = vector3(-1815.83, 1972.43, 132.71)},
 }

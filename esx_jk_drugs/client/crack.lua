@@ -6,7 +6,7 @@ Citizen.CreateThread(function()
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)
 		local loaded = false
-		
+
 
 		if GetDistanceBetweenCoords(coords, Config.ProcessZones.CrackProcessing.coords, true) < 15 and GetDistanceBetweenCoords(coords, Config.ProcessZones.CrackProcessing.coords, true) > 10 then
 			ESX.ShowNotification("The Lost aren\'t too friendly when it comes to sharing drugs")
@@ -46,7 +46,7 @@ Citizen.CreateThread(function()
 
 		if GetDistanceBetweenCoords(coords, Config.DumpZones.CrackDump.coords, true) < 1 then
 			if not menuOpen5 then
-				ESX.ShowHelpNotification("Press [E] to to load off on Jerome")
+				ESX.ShowHelpNotification(_U('crack_sell'))
 
 				if IsControlJustReleased(0, Keys['E']) then
 					wasOpen5 = true
@@ -91,8 +91,8 @@ function OpenCrackDump()
 			})
 		end
 	end
-	
-	if Config.ForceMulti then 
+
+	if Config.ForceMulti then
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'drug_shop', {
 			title    = _U('dealer_title'),
 			align    = 'top-left',
@@ -117,6 +117,6 @@ function OpenCrackDump()
 			menuOpen5 = false
 		end)
 
-		menuOpen5 = false		
+		menuOpen5 = false
 	end
 end

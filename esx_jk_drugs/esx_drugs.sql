@@ -1,4 +1,4 @@
-USE `essentialmode`;
+
 
 INSERT INTO `items` (`name`, `label`, `limit`, `rare`, `can_remove`) VALUES
 	('cannabis', 'Cannabis', 50, 0, 1),
@@ -22,6 +22,6 @@ INSERT INTO `items` (`name`, `label`, `limit`, `rare`, `can_remove`) VALUES
 	('pcp', 'PCP', 25, 0, 1),
 	('dabs', 'Dabs', 50, 0, 1),
 	('painkiller', 'Painkiller', 10, 0, 1),
-	('narcan', 'Narcan', 10, 0, 1),
-	
+	('narcan', 'Narcan', 10, 0, 1)
+
 ;
