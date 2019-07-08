@@ -44,7 +44,7 @@ Citizen.CreateThread(function()
 
 		if GetDistanceBetweenCoords(coords, Config.DumpZones.HeroineDump.coords, true) < 1 then
 			if not menuOpen1 then
-				ESX.ShowHelpNotification("Press [E] to give your heroine to Frederick")
+				ESX.ShowHelpNotification(_U('heroine_sell'))
 
 				if IsControlJustReleased(0, Keys['E']) then
 					wasOpen1 = true
@@ -89,7 +89,7 @@ function OpenHeroineDump()
 			})
 		end
 	end
-	
+
 	if Config.ForceMulti then
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'drug_shop', {
 			title    = _U('dealer_title'),
@@ -113,9 +113,9 @@ function OpenHeroineDump()
 		end, function(data, menu)
 			menu.close()
 			menuOpen1 = false
-			
+
 		end)
 
 		menuOpen1 = false
-	end	
+	end
 end

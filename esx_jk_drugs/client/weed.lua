@@ -23,8 +23,8 @@ Citizen.CreateThread(function()
 		Citizen.Wait(0)
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)
-		
-		
+
+
 		if GetDistanceBetweenCoords(coords, Config.ProcessZones.WeedProcessing.coords, true) < 15 and GetDistanceBetweenCoords(coords, Config.ProcessZones.WeedProcessing.coords, true) > 10 then
 			ESX.ShowNotification("It smells like a weed farm over here")
 		end
@@ -63,7 +63,7 @@ Citizen.CreateThread(function()
 
 		if GetDistanceBetweenCoords(coords, Config.DumpZones.WeedDump.coords, true) < 1 then
 			if not menuOpen4 then
-				ESX.ShowHelpNotification("Press [E] to give your weed to Smoke on the Water")
+				ESX.ShowHelpNotification(_U('weed_sell'))
 
 				if IsControlJustReleased(0, Keys['E']) then
 					wasOpen4 = true
@@ -168,12 +168,12 @@ Citizen.CreateThread(function()
 						Citizen.Wait(2000)
 						ClearPedTasks(playerPed)
 						Citizen.Wait(1500)
-		
+
 						ESX.Game.DeleteObject(nearbyObject)
-		
+
 						table.remove(weedPlants, nearbyID)
 						spawnedWeeds = spawnedWeeds - 1
-		
+
 						TriggerServerEvent('esx_drugs:pickedUpCannabis')
 					else
 						ESX.ShowNotification(_U('weed_inventoryfull'))

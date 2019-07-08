@@ -62,7 +62,7 @@ Citizen.CreateThread(function()
 
 		if GetDistanceBetweenCoords(coords, Config.DumpZones.CocaineDump.coords, true) < 1 then
 			if not menuOpen then
-				ESX.ShowHelpNotification("Press [E] to give your coke to The Golfing Society")
+				ESX.ShowHelpNotification(_U('cocaine_sell'))
 
 				if IsControlJustReleased(0, Keys['E']) then
 					wasOpen = true
@@ -167,12 +167,12 @@ Citizen.CreateThread(function()
 						Citizen.Wait(2000)
 						ClearPedTasks(playerPed)
 						Citizen.Wait(1500)
-		
+
 						ESX.Game.DeleteObject(nearbyObject)
-		
+
 						table.remove(cocaPlants, nearbyID)
 						spawnedCoca = spawnedCoca - 1
-		
+
 						TriggerServerEvent('esx_drugs:pickedUpCocaPlant')
 					else
 						ESX.ShowNotification(_U('cocaine_inventoryfull'))

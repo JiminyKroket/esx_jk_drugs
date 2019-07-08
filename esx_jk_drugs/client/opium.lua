@@ -62,7 +62,7 @@ Citizen.CreateThread(function()
 
 		if GetDistanceBetweenCoords(coords, Config.DumpZones.OpiumDump.coords, true) < 1 then
 			if not menuOpen3 then
-				ESX.ShowHelpNotification("Press [E] to throw your opium in the O'Neil fireplace, they'll pay don't worry")
+				ESX.ShowHelpNotification(_U('opium_sell'))
 
 				if IsControlJustReleased(0, Keys['E']) then
 					wasOpen3 = true
@@ -167,12 +167,12 @@ Citizen.CreateThread(function()
 						Citizen.Wait(2000)
 						ClearPedTasks(playerPed)
 						Citizen.Wait(1500)
-		
+
 						ESX.Game.DeleteObject(nearbyObject)
-		
+
 						table.remove(poppyPlants, nearbyID)
 						spawnedPoppy = spawnedPoppy - 1
-		
+
 						TriggerServerEvent('esx_drugs:pickedUpPoppy')
 					else
 						ESX.ShowNotification(_U('opium_inventoryfull'))

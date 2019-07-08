@@ -10,6 +10,7 @@ Locales ['en'] = {
   ['weed_processingenough'] = 'you can\'t clean ~b~1x~s~ ~g~Cannabis~s~ without any.',
   ['weed_processed'] = 'you\'ve cleaned ~b~1x~s~ ~g~Cannabis~s~ and got ~b~5x~s~ ~g~Marijuana~s~',
   ['weed_processingtoofar'] = 'you walked away while cleaning so it was ~r~canceled~s~.',
+  ['weed_sell'] = 'Press ~INPUT_CONTEXT~ to give your weed to Smoke on the Water',
 
   -- cocaine
   ['cocaine_pickupprompt'] = 'press ~INPUT_CONTEXT~ to harvest the ~g~CocaPlant~s~ plant.',
@@ -20,7 +21,8 @@ Locales ['en'] = {
   ['cocaine_processingenough'] = 'you must have ~b~3x~s~ ~g~CocaPlant~s~ to process.',
   ['cocaine_processed'] = 'you\'ve processed ~b~3x~s~ ~g~CocaPlant~s~ to ~b~1x~s~ ~g~Cocaine~s~',
   ['cocaine_processingtoofar'] = 'the processing has been ~r~canceled~s~ due to you abandoning the area.',
-  
+  ['cocaine_sell'] = 'Press ~INPUT_CONTEXT~ to give your coke to The Golfing Society',
+
   -- ephedrine
   ['ephedrine_pickupprompt'] = 'press ~INPUT_CONTEXT~ to harvest the ~g~Ephedra~s~ plant.',
   ['ephedrine_inventoryfull'] = 'you do not have any more inventory space for ~g~Ephedra~s~.',
@@ -30,7 +32,8 @@ Locales ['en'] = {
   ['ephedrine_processingenough'] = 'you must have ~b~1x~s~ ~g~Ephedra~s~ in order to process.',
   ['ephedrine_processed'] = 'you\'ve processed ~b~1x~s~ ~g~Ephedra~s~ to ~b~1x~s~ ~g~Ephedrine~s~',
   ['ephedrine_processingtoofar'] = 'the processing has been ~r~canceled~s~ due to you abandoning the area.',
-  
+  ['ephedrine_sell'] = 'Press ~INPUT_CONTEXT~ ',
+
   -- meth
   -- ['meth_pickupprompt'] = 'press ~INPUT_CONTEXT~ to harvest the ~g~Ephedrine~s~ plant.',
   -- ['meth_inventoryfull'] = 'you do not have any more inventory space for ~g~Ephedrine~s~.',
@@ -40,7 +43,8 @@ Locales ['en'] = {
   ['meth_processingenough'] = 'you must have ~b~2x~s~ ~g~Ephedrine~s~ in order to process.',
   ['meth_processed'] = 'you\'ve processed ~b~2x~s~ ~g~Ephedrine~s~ to ~b~1x~s~ ~g~Meth~s~',
   ['meth_processingtoofar'] = 'the processing has been ~r~canceled~s~ due to you abandoning the area.',
-  
+  ['meth_sell'] = 'Press ~INPUT_CONTEXT~ to give your meth to Willie',
+
   -- crack
   -- ['crack_pickupprompt'] = 'press ~INPUT_CONTEXT~ to harvest the ~g~Ephedrine~s~ plant.',
   -- ['crack_inventoryfull'] = 'you do not have any more inventory space for ~g~Ephedrine~s~.',
@@ -50,7 +54,8 @@ Locales ['en'] = {
   ['crack_processingenough'] = 'you must have ~b~2x~s~ ~g~Cocaine~s~ in order to process.',
   ['crack_processed'] = 'you\'ve processed ~b~2x~s~ ~g~Cocaine~s~ to ~b~1x~s~ ~g~Crack~s~',
   ['crack_processingtoofar'] = 'the processing has been ~r~canceled~s~ due to you abandoning the area.',
-  
+  ['crack_sell'] = 'Press ~INPUT_CONTEXT~ to to load off on Jerome',
+
   -- opium
   ['opium_pickupprompt'] = 'press ~INPUT_CONTEXT~ to harvest the ~g~Poppy~s~ plant.',
   ['opium_inventoryfull'] = 'you do not have any more inventory space for ~g~Poppy~s~.',
@@ -60,7 +65,9 @@ Locales ['en'] = {
   ['opium_processingenough'] = 'you must have ~b~2x~s~ ~g~Poppy~s~ in order to process.',
   ['opium_processed'] = 'you\'ve processed ~b~2x~s~ ~g~Poppy~s~ to ~b~1x~s~ ~g~Opium~s~',
   ['opium_processingtoofar'] = 'the processing has been ~r~canceled~s~ due to you abandoning the area.',
-  
+  ['opium_sell'] = 'Press ~INPUT_CONTEXT~ to throw your opium in the O\'Neil fireplace, they\'ll pay don\'t worry',
+
+
    -- heroine
   -- ['heroine_pickupprompt'] = 'press ~INPUT_CONTEXT~ to harvest the ~g~Ephedrine~s~ plant.',
   -- ['heroine_inventoryfull'] = 'you do not have any more inventory space for ~g~Ephedrine~s~.',
@@ -70,7 +77,8 @@ Locales ['en'] = {
   ['heroine_processingenough'] = 'you must have ~b~5x~s~ ~g~Opium~s~ in order to process.',
   ['heroine_processed'] = 'you\'ve processed ~b~5x~s~ ~g~Opium~s~ to ~b~1x~s~ ~g~Heroine~s~',
   ['heroine_processingtoofar'] = 'the processing has been ~r~canceled~s~ due to you abandoning the area.',
-  
+  ['heroine_sell'] = 'Press ~INPUT_CONTEXT~ to give your heroine to Frederick',
+
   -- drug dealer
   ['dealer_prompt'] = 'press ~INPUT_CONTEXT~ to talk with the ~r~Drug Dealer~s~.',
   ['dealer_title'] = 'drug Dealer',
