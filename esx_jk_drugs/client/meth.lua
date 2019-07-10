@@ -7,7 +7,7 @@ Citizen.CreateThread(function()
 		local coords = GetEntityCoords(playerPed)
 
 		if GetDistanceBetweenCoords(coords, Config.ProcessZones.MethProcessing.coords, true) < 15 then
-			ESX.ShowNotification("You feel like you\'re about to vomit from the stench of piss")
+			ESX.ShowNotification(_U('meth_process_close'))
 		end
 		if GetDistanceBetweenCoords(coords, Config.ProcessZones.MethProcessing.coords, true) < 1 then
 			ProcessEphedrine()
@@ -19,7 +19,7 @@ end)
 function ProcessEphedrine()
 	isProcessing = true
 
-	TriggerServerEvent('esx_drugs:processEphedrine')
+	TriggerServerEvent('esx_jk_drugs:processEphedrine')
 	local timeLeft = Config.Delays.MethProcessing / 1000
 	local playerPed = PlayerPedId()
 
@@ -28,7 +28,7 @@ function ProcessEphedrine()
 		timeLeft = timeLeft - 1
 
 		if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.ProcessZones.MethProcessing.coords, false) > 4 then
-			TriggerServerEvent('esx_drugs:cancelProcessing')
+			TriggerServerEvent('esx_jk_drugs:cancelProcessing')
 			break
 		end
 	end
@@ -50,7 +50,7 @@ Citizen.CreateThread(function()
 					wasOpen2 = true
 					OpenMethDump()
 					if Config.EnableCops then
-						TriggerServerEvent('esx_drugs:selling')
+						TriggerServerEvent('esx_jk_drugs:selling')
 					end
 				end
 			else
@@ -96,7 +96,7 @@ function OpenMethDump()
 			align    = 'top-left',
 			elements = elements
 		}, function(data, menu)
-			TriggerServerEvent('esx_drugs:sellMeth', data.current.name, data.current.value)
+			TriggerServerEvent('esx_jk_drugs:sellMeth', data.current.name, data.current.value)
 			menu.close()
 			menuOpen2 = false
 			end, function(data, menu)
@@ -109,7 +109,7 @@ function OpenMethDump()
 			align    = 'top-left',
 			elements = elements
 		}, function(data, menu)
-			TriggerServerEvent('esx_drugs:sellMeth', data.current.name, data.current.value)
+			TriggerServerEvent('esx_jk_drugs:sellMeth', data.current.name, data.current.value)
 		end, function(data, menu)
 			menu.close()
 			menuOpen2 = false

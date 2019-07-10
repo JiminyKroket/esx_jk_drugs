@@ -9,7 +9,7 @@ Citizen.CreateThread(function()
 		local coords = GetEntityCoords(PlayerPedId())
 
 		if GetDistanceBetweenCoords(coords, Config.FieldZones.PoppyField.coords, true) < 45 then
-			TriggerEvent('esx:showNotification', "~r~The Wong Family might have your head for playing in their Poppy field.")
+			TriggerEvent('esx:showNotification', _U('opium_field_close'))
 			SpawnPoppyPlants()
 			Citizen.Wait(500)
 		else
@@ -25,7 +25,7 @@ Citizen.CreateThread(function()
 		local coords = GetEntityCoords(playerPed)
 
 		if GetDistanceBetweenCoords(coords, Config.ProcessZones.PoppyProcessing.coords, true) < 15 then
-			ESX.ShowNotification("Looks like Humane Labs is getting into opioids")
+			ESX.ShowNotification(_U('opium_process_close'))
 		end
 		if GetDistanceBetweenCoords(coords, Config.ProcessZones.PoppyProcessing.coords, true) < 1 then
 			ProcessPoppy()
@@ -37,7 +37,7 @@ end)
 function ProcessPoppy()
 	isProcessing = true
 
-	TriggerServerEvent('esx_drugs:processPoppy')
+	TriggerServerEvent('esx_jk_drugs:processPoppy')
 	local timeLeft = Config.Delays.PoppyProcessing / 1000
 	local playerPed = PlayerPedId()
 
@@ -46,7 +46,7 @@ function ProcessPoppy()
 		timeLeft = timeLeft - 1
 
 		if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.ProcessZones.PoppyProcessing.coords, false) > 4 then
-			TriggerServerEvent('esx_drugs:cancelProcessing')
+			TriggerServerEvent('esx_jk_drugs:cancelProcessing')
 			break
 		end
 	end
@@ -68,7 +68,7 @@ Citizen.CreateThread(function()
 					wasOpen3 = true
 					OpenOpiumDump()
 					if Config.EnableCops then
-						TriggerServerEvent('esx_drugs:selling')
+						TriggerServerEvent('esx_jk_drugs:selling')
 					end
 				end
 			else
@@ -114,7 +114,7 @@ function OpenOpiumDump()
 			align    = 'top-left',
 			elements = elements
 		}, function(data, menu)
-			TriggerServerEvent('esx_drugs:sellOpium', data.current.name, data.current.value)
+			TriggerServerEvent('esx_jk_drugs:sellOpium', data.current.name, data.current.value)
 			menu.close()
 			menuOpen3 = false
 			end, function(data, menu)
@@ -127,7 +127,7 @@ function OpenOpiumDump()
 			align    = 'top-left',
 			elements = elements
 		}, function(data, menu)
-			TriggerServerEvent('esx_drugs:sellOpium', data.current.name, data.current.value)
+			TriggerServerEvent('esx_jk_drugs:sellOpium', data.current.name, data.current.value)
 		end, function(data, menu)
 			menu.close()
 			menuOpen3 = false
@@ -159,7 +159,7 @@ Citizen.CreateThread(function()
 			if IsControlJustReleased(0, Keys['E']) and not isPickingUp then
 				isPickingUp = true
 
-				ESX.TriggerServerCallback('esx_drugs:canPickUp', function(canPickUp)
+				ESX.TriggerServerCallback('esx_jk_drugs:canPickUp', function(canPickUp)
 
 					if canPickUp then
 						TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
@@ -173,7 +173,7 @@ Citizen.CreateThread(function()
 						table.remove(poppyPlants, nearbyID)
 						spawnedPoppy = spawnedPoppy - 1
 
-						TriggerServerEvent('esx_drugs:pickedUpPoppy')
+						TriggerServerEvent('esx_jk_drugs:pickedUpPoppy')
 					else
 						ESX.ShowNotification(_U('opium_inventoryfull'))
 					end

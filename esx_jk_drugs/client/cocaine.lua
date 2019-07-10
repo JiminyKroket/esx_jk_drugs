@@ -9,7 +9,7 @@ Citizen.CreateThread(function()
 		local coords = GetEntityCoords(PlayerPedId())
 
 		if GetDistanceBetweenCoords(coords, Config.FieldZones.CocaineField.coords, true) < 30 then
-			TriggerEvent('esx:showNotification', "You notice some of these plants dont look like cotton.")
+			TriggerEvent('esx:showNotification', _U('cocaine_field_close'))
 			SpawnCocaPlants()
 			Citizen.Wait(500)
 		else
@@ -25,7 +25,7 @@ Citizen.CreateThread(function()
 		local coords = GetEntityCoords(playerPed)
 
 		if GetDistanceBetweenCoords(coords, Config.ProcessZones.CocaineProcessing.coords, true) < 15 and GetDistanceBetweenCoords(coords, Config.ProcessZones.CocaineProcessing.coords, true) > 10 then
-			ESX.ShowNotification("These guys are making their own coke")
+			ESX.ShowNotification(_U('cocaine_process_close'))
 		end
 		if GetDistanceBetweenCoords(coords, Config.ProcessZones.CocaineProcessing.coords, true) < 1 then
 			ProcessCoca()
@@ -37,7 +37,7 @@ end)
 function ProcessCoca()
 	isProcessing = true
 
-	TriggerServerEvent('esx_drugs:processCocaPlant')
+	TriggerServerEvent('esx_jk_drugs:processCocaPlant')
 	local timeLeft = Config.Delays.CocaineProcessing / 1000
 	local playerPed = PlayerPedId()
 
@@ -46,7 +46,7 @@ function ProcessCoca()
 		timeLeft = timeLeft - 1
 
 		if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.ProcessZones.CocaineProcessing.coords, false) > 4 then
-			TriggerServerEvent('esx_drugs:cancelProcessing')
+			TriggerServerEvent('esx_jk_drugs:cancelProcessing')
 			break
 		end
 	end
@@ -68,7 +68,7 @@ Citizen.CreateThread(function()
 					wasOpen = true
 					OpenCocaineDump()
 					if Config.EnableCops then
-						TriggerServerEvent('esx_drugs:selling')
+						TriggerServerEvent('esx_jk_drugs:selling')
 					end
 				end
 			else
@@ -114,7 +114,7 @@ function OpenCocaineDump()
 			align    = 'top-left',
 			elements = elements
 		}, function(data, menu)
-			TriggerServerEvent('esx_drugs:sellCocaine', data.current.name, data.current.value)
+			TriggerServerEvent('esx_jk_drugs:sellCocaine', data.current.name, data.current.value)
 			menu.close()
 			menuOpen = false
 			end, function(data, menu)
@@ -127,7 +127,7 @@ function OpenCocaineDump()
 			align    = 'top-left',
 			elements = elements
 		}, function(data, menu)
-			TriggerServerEvent('esx_drugs:sellCocaine', data.current.name, data.current.value)
+			TriggerServerEvent('esx_jk_drugs:sellCocaine', data.current.name, data.current.value)
 		end, function(data, menu)
 			menu.close()
 			menuOpen = false
@@ -159,7 +159,7 @@ Citizen.CreateThread(function()
 			if IsControlJustReleased(0, Keys['E']) and not isPickingUp then
 				isPickingUp = true
 
-				ESX.TriggerServerCallback('esx_drugs:canPickUp', function(canPickUp)
+				ESX.TriggerServerCallback('esx_jk_drugs:canPickUp', function(canPickUp)
 
 					if canPickUp then
 						TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
@@ -173,7 +173,7 @@ Citizen.CreateThread(function()
 						table.remove(cocaPlants, nearbyID)
 						spawnedCoca = spawnedCoca - 1
 
-						TriggerServerEvent('esx_drugs:pickedUpCocaPlant')
+						TriggerServerEvent('esx_jk_drugs:pickedUpCocaPlant')
 					else
 						ESX.ShowNotification(_U('cocaine_inventoryfull'))
 					end

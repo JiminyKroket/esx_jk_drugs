@@ -9,7 +9,7 @@ Citizen.CreateThread(function()
 
 
 		if GetDistanceBetweenCoords(coords, Config.ProcessZones.CrackProcessing.coords, true) < 15 and GetDistanceBetweenCoords(coords, Config.ProcessZones.CrackProcessing.coords, true) > 10 then
-			ESX.ShowNotification("The Lost aren\'t too friendly when it comes to sharing drugs")
+			ESX.ShowNotification(_U('crack_process_close'))
 		end
 		if GetDistanceBetweenCoords(coords, Config.ProcessZones.CrackProcessing.coords, true) < 1.5 then
 			ProcessCoke()
@@ -21,7 +21,7 @@ end)
 function ProcessCoke()
 	isProcessing = true
 
-	TriggerServerEvent('esx_drugs:processCoke')
+	TriggerServerEvent('esx_jk_drugs:processCoke')
 	local timeLeft = Config.Delays.CrackProcessing / 1000
 	local playerPed = PlayerPedId()
 
@@ -30,7 +30,7 @@ function ProcessCoke()
 		timeLeft = timeLeft - 1
 
 		if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.ProcessZones.CrackProcessing.coords, false) > 4 then
-			TriggerServerEvent('esx_drugs:cancelProcessing')
+			TriggerServerEvent('esx_jk_drugs:cancelProcessing')
 			break
 		end
 	end
@@ -52,7 +52,7 @@ Citizen.CreateThread(function()
 					wasOpen5 = true
 					OpenCrackDump()
 					if Config.EnableCops then
-						TriggerServerEvent('esx_drugs:selling')
+						TriggerServerEvent('esx_jk_drugs:selling')
 					end
 				end
 			else
@@ -98,7 +98,7 @@ function OpenCrackDump()
 			align    = 'top-left',
 			elements = elements
 		}, function(data, menu)
-			TriggerServerEvent('esx_drugs:sellCrack', data.current.name, data.current.value)
+			TriggerServerEvent('esx_jk_drugs:sellCrack', data.current.name, data.current.value)
 			menu.close()
 			menuOpen5 = false
 			end, function(data, menu)
@@ -111,7 +111,7 @@ function OpenCrackDump()
 			align    = 'top-left',
 			elements = elements
 		}, function(data, menu)
-			TriggerServerEvent('esx_drugs:sellCrack', data.current.name, data.current.value)
+			TriggerServerEvent('esx_jk_drugs:sellCrack', data.current.name, data.current.value)
 		end, function(data, menu)
 			menu.close()
 			menuOpen5 = false

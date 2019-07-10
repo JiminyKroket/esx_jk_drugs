@@ -115,15 +115,15 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterNetEvent('esx_drugs:useItem')
-AddEventHandler('esx_drugs:useItem', function(itemName)
+RegisterNetEvent('esx_jk_drugs:useItem')
+AddEventHandler('esx_jk_drugs:useItem', function(itemName)
     ESX.UI.Menu.CloseAll()
 
     if itemName == 'marijuana' then
         local lib, anim = 'amb@world_human_smoking_pot@male@base', 'base'
         local playerPed = PlayerPedId()
 
-        ESX.ShowNotification("You smoked a doobie.")
+        ESX.ShowNotification(_U('weed_use'))
         ESX.Streaming.RequestAnimDict(lib, function()
             TaskPlayAnim(playerPed, lib, anim, 8.0, -8.0, -1, 32, 0, false, false, false)
 
@@ -133,14 +133,14 @@ AddEventHandler('esx_drugs:useItem', function(itemName)
                 DisableAllControlActions(0)
             end
 
-            TriggerEvent('esx_drugs:onPot')
+            TriggerEvent('esx_jk_drugs:onPot')
         end)
 
     elseif itemName == 'cocaine' then
         local lib, anim = 'anim@mp_player_intcelebrationmale@face_palm', 'face_palm' -- TODO better animations
         local playerPed = PlayerPedId()
 
-        ESX.ShowNotification("You ate a pile of coke!")
+        ESX.ShowNotification(_U('cocaine_use'))
         ESX.Streaming.RequestAnimDict(lib, function()
             TaskPlayAnim(playerPed, lib, anim, 8.0, -8.0, -1, 32, 0, false, false, false)
 
@@ -150,14 +150,14 @@ AddEventHandler('esx_drugs:useItem', function(itemName)
                 DisableAllControlActions(0)
             end
 
-            TriggerEvent('esx_drugs:cokedOut')
+            TriggerEvent('esx_jk_drugs:cokedOut')
         end)
 
     elseif itemName == 'meth' then
         local lib, anim = 'mp_weapons_deal_sting', 'crackhead_bag_loop' -- TODO better animations
         local playerPed = PlayerPedId()
 
-        ESX.ShowNotification("You dropped some ice trying to smoke!")
+        ESX.ShowNotification(_U('meth_use'))
         ESX.Streaming.RequestAnimDict(lib, function()
             TaskPlayAnim(playerPed, lib, anim, 8.0, -8.0, -1, 32, 0, false, false, false)
 
@@ -167,14 +167,14 @@ AddEventHandler('esx_drugs:useItem', function(itemName)
                 DisableAllControlActions(0)
             end
 
-            TriggerEvent('esx_drugs:icedOut')
+            TriggerEvent('esx_jk_drugs:icedOut')
         end)
 
     elseif itemName == 'crack' then
         local lib, anim = 'mp_weapons_deal_sting', 'crackhead_bag_loop' -- TODO better animations
         local playerPed = PlayerPedId()
 
-        ESX.ShowNotification("Probably wouldn\'t drop your crack if you didn\'t smoke it")
+        ESX.ShowNotification(_U('crack_use'))
         ESX.Streaming.RequestAnimDict(lib, function()
             TaskPlayAnim(playerPed, lib, anim, 8.0, -8.0, -1, 32, 0, false, false, false)
 
@@ -184,14 +184,14 @@ AddEventHandler('esx_drugs:useItem', function(itemName)
                 DisableAllControlActions(0)
             end
 
-            TriggerEvent('esx_drugs:crackedOut')
+            TriggerEvent('esx_jk_drugs:crackedOut')
         end)
 
     elseif itemName == 'heroine' then
         local lib, anim = 'rcmpaparazzo1ig_4', 'miranda_shooting_up' -- TODO better animations
         local playerPed = PlayerPedId()
 
-        ESX.ShowNotification("You poked yourself... with a needle.")
+        ESX.ShowNotification(_U('heroine_use'))
         ESX.Streaming.RequestAnimDict(lib, function()
             TaskPlayAnim(playerPed, lib, anim, 8.0, -8.0, 10000, 32, 0, false, false, false)
 
@@ -201,14 +201,14 @@ AddEventHandler('esx_drugs:useItem', function(itemName)
                 DisableAllControlActions(0)
             end
 
-            TriggerEvent('esx_drugs:noddinOut')
+            TriggerEvent('esx_jk_drugs:noddinOut')
         end)
 
     elseif itemName == 'drugtest' then
         local lib, anim = 'misscarsteal2peeing', 'peeing_intro'
         local playerPed = PlayerPedId()
 
-        ESX.ShowNotification("You took a drug test")
+        ESX.ShowNotification(_U('drug_test'))
         ESX.Streaming.RequestAnimDict(lib, function()
             TaskPlayAnim(playerPed, lib, anim, 8.0, -8.0, -1, 32, 0, false, false, false)
 
@@ -218,19 +218,19 @@ AddEventHandler('esx_drugs:useItem', function(itemName)
                 DisableAllControlActions(0)
             end
 
-            TriggerEvent('esx_drugs:testing')
+            TriggerEvent('esx_jk_drugs:testing')
         end)
 
     elseif itemName == 'fakepee' then
 
-        ESX.ShowNotification("You took a fake pee pill")
-        TriggerEvent('esx_drugs:fakePee')
+        ESX.ShowNotification(_U('fake_pee'))
+        TriggerEvent('esx_jk_drugs:fakePee')
 
     elseif itemName == 'beer' then
         local lib, anim = 'amb@world_human_drinking@beer@male@idle_a', 'idle_a'
         local playerPed = PlayerPedId()
 
-        ESX.ShowNotification("Why are you drinking piss water?")
+        ESX.ShowNotification(_U('beer'))
         ESX.Streaming.RequestAnimDict(lib, function()
             TaskPlayAnim(playerPed, lib, anim, 8.0, -8.0, 5000, 32, 0, false, false, false)
 
@@ -240,14 +240,14 @@ AddEventHandler('esx_drugs:useItem', function(itemName)
                 DisableAllControlActions(0)
             end
 
-            TriggerEvent('esx_drugs:buzzin')
+            TriggerEvent('esx_jk_drugs:buzzin')
         end)
 
     elseif itemName == 'tequila' then
         local lib, anim = 'amb@world_human_drinking@beer@male@idle_a', 'idle_a'
         local playerPed = PlayerPedId()
 
-        ESX.ShowNotification("You went for some tequila tonight")
+        ESX.ShowNotification(_U('tequila'))
         ESX.Streaming.RequestAnimDict(lib, function()
             TaskPlayAnim(playerPed, lib, anim, 8.0, -8.0, 5000, 32, 0, false, false, false)
 
@@ -257,14 +257,14 @@ AddEventHandler('esx_drugs:useItem', function(itemName)
                 DisableAllControlActions(0)
             end
 
-            TriggerEvent('esx_drugs:drunk')
+            TriggerEvent('esx_jk_drugs:drunk')
         end)
 
     elseif itemName == 'vodka' then
         local lib, anim = 'amb@world_human_drinking@beer@male@idle_a', 'idle_a'
         local playerPed = PlayerPedId()
 
-        ESX.ShowNotification("You went for some vodka tonight")
+        ESX.ShowNotification(_U('vodka'))
         ESX.Streaming.RequestAnimDict(lib, function()
             TaskPlayAnim(playerPed, lib, anim, 8.0, -8.0, 5000, 32, 0, false, false, false)
 
@@ -274,13 +274,13 @@ AddEventHandler('esx_drugs:useItem', function(itemName)
                 DisableAllControlActions(0)
             end
 
-            TriggerEvent('esx_drugs:drunk')
+            TriggerEvent('esx_jk_drugs:drunk')
         end)
     elseif itemName == 'whiskey' then
         local lib, anim = 'amb@world_human_drinking@beer@male@idle_a', 'idle_a'
         local playerPed = PlayerPedId()
 
-        ESX.ShowNotification("You went for some whiskey tonight")
+        ESX.ShowNotification(_U('whiskey'))
         ESX.Streaming.RequestAnimDict(lib, function()
             TaskPlayAnim(playerPed, lib, anim, 8.0, -8.0, 5000, 32, 0, false, false, false)
 
@@ -290,17 +290,17 @@ AddEventHandler('esx_drugs:useItem', function(itemName)
                 DisableAllControlActions(0)
             end
 
-            TriggerEvent('esx_drugs:drunk')
+            TriggerEvent('esx_jk_drugs:drunk')
         end)
     elseif itemName == 'breathalyzer' then
 
-        ESX.ShowNotification("You've been forced to take a breathalyzer")
-        TriggerEvent('esx_drugs:breathalyzer')
+        ESX.ShowNotification(_U('forced'))
+        TriggerEvent('esx_jk_drugs:breathalyzer')
     end
 end)
 
-RegisterNetEvent('esx_drugs:onPot')
-AddEventHandler('esx_drugs:onPot', function()
+RegisterNetEvent('esx_jk_drugs:onPot')
+AddEventHandler('esx_jk_drugs:onPot', function()
     RequestAnimSet("MOVE_M@DRUNK@SLIGHTLYDRUNK")
     while not HasAnimSetLoaded("MOVE_M@DRUNK@SLIGHTLYDRUNK") do
         Citizen.Wait(0)
@@ -322,13 +322,13 @@ AddEventHandler('esx_drugs:onPot', function()
     ResetPedMovementClipset(GetPlayerPed(-1), 0)
     SetPedIsDrunk(GetPlayerPed(-1), false)
     SetPedMotionBlur(GetPlayerPed(-1), false)
-    ESX.ShowNotification("You feel yourself come down from your high!")
+    ESX.ShowNotification(_U('comin_down'))
     onDrugs = false
 
 end)
 
-RegisterNetEvent('esx_drugs:cokedOut')
-AddEventHandler('esx_drugs:cokedOut', function()
+RegisterNetEvent('esx_jk_drugs:cokedOut')
+AddEventHandler('esx_jk_drugs:cokedOut', function()
     RequestAnimSet("move_m@hurry_butch@a")
     while not HasAnimSetLoaded("move_m@hurry_butch@a") do
         Citizen.Wait(0)
@@ -339,7 +339,7 @@ AddEventHandler('esx_drugs:cokedOut', function()
     SetPedMotionBlur(GetPlayerPed(-1), true)
     SetPedMovementClipset(GetPlayerPed(-1), "move_m@hurry_butch@a", true)
     SetPedRandomProps(GetPlayerPed(-1), true)
-    SetRunSprintMultiplierForPlayer(GetPlayerPed(-1), 2)
+    SetRunSprintMultiplierForPlayer(GetPlayerPed(-1), 2.5)
     DoScreenFadeIn(1000)
     Citizen.Wait(300000)
     DoScreenFadeOut(1000)
@@ -351,33 +351,29 @@ AddEventHandler('esx_drugs:cokedOut', function()
     ClearAllPedProps(GetPlayerPed(-1), true)
     SetRunSprintMultiplierForPlayer(GetPlayerPed(-1), 1.0)
     SetPedMotionBlur(GetPlayerPed(-1), false)
-    ESX.ShowNotification("You feel yourself come down from your high!")
+    ESX.ShowNotification(_U('comin_down'))
     onDrugs = false
 
 end)
 
-RegisterNetEvent('esx_drugs:icedOut')
-AddEventHandler('esx_drugs:icedOut', function()
+RegisterNetEvent('esx_jk_drugs:icedOut')
+AddEventHandler('esx_jk_drugs:icedOut', function()
     RequestAnimSet("move_m@hurry_butch@b")
     while not HasAnimSetLoaded("move_m@hurry_butch@b") do
         Citizen.Wait(0)
     end
     onDrugs = true
+	count = 0
     DoScreenFadeOut(1000)
     Citizen.Wait(1000)
     SetPedMotionBlur(GetPlayerPed(-1), true)
     SetPedMovementClipset(GetPlayerPed(-1), "move_m@hurry_butch@b", true)
     DoScreenFadeIn(1000)
-    TaskJump(GetPlayerPed(-1), false, true, false)
-    Citizen.Wait(60000)
-    TaskJump(GetPlayerPed(-1), false, true, false)
-    Citizen.Wait(60000)
-    TaskJump(GetPlayerPed(-1), false, true, false)
-    Citizen.Wait(60000)
-    TaskJump(GetPlayerPed(-1), false, true, false)
-    Citizen.Wait(60000)
-    TaskJump(GetPlayerPed(-1), false, true, false)
-    Citizen.Wait(60000)
+	repeat
+		TaskJump(GetPlayerPed(-1), false, true, false)
+		Citizen.Wait(60000)
+		count = count  + 1
+	until count == 5
     DoScreenFadeOut(1000)
     Citizen.Wait(1000)
     DoScreenFadeIn(1000)
@@ -385,58 +381,41 @@ AddEventHandler('esx_drugs:icedOut', function()
     ResetPedMovementClipset(GetPlayerPed(-1), 0)
     ClearAllPedProps(GetPlayerPed(-1), true)
     SetPedMotionBlur(GetPlayerPed(-1), false)
-    ESX.ShowNotification("You feel yourself come down from your high!")
+    ESX.ShowNotification(_U('comin_down'))
     onDrugs = false
 
 end)
 
-RegisterNetEvent('esx_drugs:noddinOut')
-AddEventHandler('esx_drugs:noddinOut', function()
+RegisterNetEvent('esx_jk_drugs:noddinOut')
+AddEventHandler('esx_jk_drugs:noddinOut', function()
     RequestAnimSet("move_m@hurry_butch@c")
     while not HasAnimSetLoaded("move_m@hurry_butch@c") do
         Citizen.Wait(0)
     end
     onDrugs = true
+	count = 0
     DoScreenFadeOut(1000)
     Citizen.Wait(1000)
     SetPedMotionBlur(GetPlayerPed(-1), true)
     SetPedMovementClipset(GetPlayerPed(-1), "move_m@hurry_butch@c", true)
     DoScreenFadeIn(1000)
-    Citizen.Wait(60000)
-    DoScreenFadeOut(1000)
-    SetPedToRagdoll(GetPlayerPed(-1), 5000, 0, 0, false, false, false)
-    Citizen.Wait(5000)
-    DoScreenFadeIn(1000)
-    Citizen.Wait(60000)
-    DoScreenFadeOut(1000)
-    SetPedToRagdoll(GetPlayerPed(-1), 5000, 0, 0, false, false, false)
-    Citizen.Wait(5000)
-    DoScreenFadeIn(1000)
-    Citizen.Wait(60000)
-    DoScreenFadeOut(1000)
-    SetPedToRagdoll(GetPlayerPed(-1), 5000, 0, 0, false, false, false)
-    Citizen.Wait(5000)
-    DoScreenFadeIn(1000)
-    Citizen.Wait(60000)
-    DoScreenFadeOut(1000)
-    SetPedToRagdoll(GetPlayerPed(-1), 5000, 0, 0, false, false, false)
-    Citizen.Wait(5000)
-    DoScreenFadeIn(1000)
-    Citizen.Wait(60000)
-    DoScreenFadeOut(1000)
-    SetPedToRagdoll(GetPlayerPed(-1), 5000, 0, 0, false, false, false)
-    Citizen.Wait(5000)
-    DoScreenFadeIn(1000)
+    repeat
+		DoScreenFadeOut(1000)
+		SetPedToRagdoll(GetPlayerPed(-1), 5000, 0, 0, false, false, false)
+		Citizen.Wait(5000)
+		DoScreenFadeIn(1000)
+		count = count + 1
+	until count == 5
     ClearTimecycleModifier()
     ResetPedMovementClipset(GetPlayerPed(-1), 0)
     SetPedMotionBlur(GetPlayerPed(-1), false)
-    ESX.ShowNotification("You feel yourself come down from your high!")
+    ESX.ShowNotification(_U('comin_down'))
     onDrugs = false
 
 end)
 
-RegisterNetEvent('esx_drugs:buzzin')
-AddEventHandler('esx_drugs:buzzin', function()
+RegisterNetEvent('esx_jk_drugs:buzzin')
+AddEventHandler('esx_jk_drugs:buzzin', function()
     RequestAnimSet("move_m@buzzed")
     while not HasAnimSetLoaded("move_m@buzzed") do
         Citizen.Wait(0)
@@ -451,13 +430,13 @@ AddEventHandler('esx_drugs:buzzin', function()
     ClearTimecycleModifier()
     ResetPedMovementClipset(GetPlayerPed(-1), 0)
     SetPedMotionBlur(GetPlayerPed(-1), false)
-    ESX.ShowNotification("You're buzz is wearing off!")
+    ESX.ShowNotification(_U('wearin_off'))
     onBeer = false
 
 end)
 
-RegisterNetEvent('esx_drugs:drunk')
-AddEventHandler('esx_drugs:drunk', function()
+RegisterNetEvent('esx_jk_drugs:drunk')
+AddEventHandler('esx_jk_drugs:drunk', function()
     RequestAnimSet("move_m@drunk@moderatedrunk")
     while not HasAnimSetLoaded("move_m@drunk@moderatedrunk") do
         Citizen.Wait(0)
@@ -474,34 +453,34 @@ AddEventHandler('esx_drugs:drunk', function()
     ResetPedMovementClipset(GetPlayerPed(-1), 0)
     SetPedMotionBlur(GetPlayerPed(-1), false)
     SetPedIsDrunk(GetPlayerPed(-1), false)
-    ESX.ShowNotification("You're buzz is wearing off!")
+    ESX.ShowNotification(_U('wearin_off'))
     onLiquor = false
 
 end)
 
-RegisterNetEvent('esx_drugs:testing')
-AddEventHandler('esx_drugs:testing', function()
+RegisterNetEvent('esx_jk_drugs:testing')
+AddEventHandler('esx_jk_drugs:testing', function()
     DoScreenFadeOut(1000)
     Citizen.Wait(1000)
     DoScreenFadeIn(1000)
     if onDrugs then
-        ESX.ShowNotification("You failed the drug test")
-        TriggerServerEvent('esx_drugs:testResultsFail')
+        ESX.ShowNotification(_U('drug_fail'))
+        TriggerServerEvent('esx_jk_drugs:testResultsFail')
     else
-        ESX.ShowNotification("You passed the drug test")
-        TriggerServerEvent('esx_drugs:testResultsPass')
+        ESX.ShowNotification(_U('drug_pass'))
+        TriggerServerEvent('esx_jk_drugs:testResultsPass')
     end
 end)
 
-RegisterNetEvent('esx_drugs:fakePee')
-AddEventHandler('esx_drugs:fakePee', function()
+RegisterNetEvent('esx_jk_drugs:fakePee')
+AddEventHandler('esx_jk_drugs:fakePee', function()
     local wasDrugged = false
     if onDrugs then
-        ESX.ShowNotification("You'll appear clean for a minute!")
+        ESX.ShowNotification(_U('fake_clean'))
         wasDrugged = true
         onDrugs = false
     else
-        ESX.ShowNotification("You shouldn't take drugs you don't need!")
+        ESX.ShowNotification(_U('not_needed'))
     end
     Citizen.Wait(60000)
     if wasDrugged then
@@ -509,40 +488,23 @@ AddEventHandler('esx_drugs:fakePee', function()
     end
 end)
 
-RegisterNetEvent('esx_drugs:testingBCA')
-AddEventHandler('esx_drugs:testingBCA', function()
-    DoScreenFadeOut(1000)
-    Citizen.Wait(1000)
-    DoScreenFadeIn(1000)
+RegisterNetEvent('esx_jk_drugs:breathalyzer')
+AddEventHandler('esx_jk_drugs:breathalyzer', function()
+
     if onBeer then
-        ESX.ShowNotification("You failed the BCA test")
-        TriggerServerEvent('esx_drugs:testResultsFailTipsy')
+        ESX.ShowNotification(_U('fail_tipsy'))
+        TriggerServerEvent('esx_jk_drugs:testResultsFailTipsy')
     elseif onLiquor then
-        ESX.ShowNotification("You failed the BCA test")
-        TriggerServerEvent('esx_drugs:testResultsFailDrunk')
+        ESX.ShowNotification(_U('fail_drunk'))
+        TriggerServerEvent('esx_jk_drugs:testResultsFailDrunk')
     else
-        ESX.ShowNotification("You passed the BCA test")
-        TriggerServerEvent('esx_drugs:testResultspassBCA')
+        ESX.ShowNotification(_U('bca_pass'))
+        TriggerServerEvent('esx_jk_drugs:testResultsPassBCA')
     end
 end)
 
-RegisterNetEvent('esx_drugs:breathalyzer')
-AddEventHandler('esx_drugs:breathalyzer', function()
-
-        if onBeer then
-            ESX.ShowNotification("You failed with 0.06%")
-            TriggerServerEvent('esx_drugs:testResultsFailTipsy')
-        elseif onLiquor then
-            ESX.ShowNotification("You failed with .16%")
-            TriggerServerEvent('esx_drugs:testResultsFailDrunk')
-        else
-            ESX.ShowNotification("You passed with less than 0.01%")
-            TriggerServerEvent('esx_drugs:testResultsPassBCA')
-        end
-end)
-
-RegisterNetEvent('esx_drugs:crackedOut')
-AddEventHandler('esx_drugs:crackedOut', function()
+RegisterNetEvent('esx_jk_drugs:crackedOut')
+AddEventHandler('esx_jk_drugs:crackedOut', function()
     RequestAnimSet("move_m@hurry_butch@a")
     while not HasAnimSetLoaded("move_m@hurry_butch@a") do
         Citizen.Wait(0)
@@ -555,16 +517,11 @@ AddEventHandler('esx_drugs:crackedOut', function()
     SetPedRandomProps(GetPlayerPed(-1), true)
     SetRunSprintMultiplierForPlayer(GetPlayerPed(-1), 1.49)
     DoScreenFadeIn(1000)
-    TaskJump(GetPlayerPed(-1), false, true, false)
-    Citizen.Wait(60000)
-    TaskJump(GetPlayerPed(-1), false, true, false)
-    Citizen.Wait(60000)
-    TaskJump(GetPlayerPed(-1), false, true, false)
-    Citizen.Wait(60000)
-    TaskJump(GetPlayerPed(-1), false, true, false)
-    Citizen.Wait(60000)
-    TaskJump(GetPlayerPed(-1), false, true, false)
-    Citizen.Wait(60000)
+   repeat
+		TaskJump(GetPlayerPed(-1), false, true, false)
+		Citizen.Wait(60000)
+		count = count  + 1
+	until count == 5
     DoScreenFadeOut(1000)
     Citizen.Wait(1000)
     DoScreenFadeIn(1000)
@@ -574,55 +531,55 @@ AddEventHandler('esx_drugs:crackedOut', function()
     ClearAllPedProps(GetPlayerPed(-1), true)
     SetRunSprintMultiplierForPlayer(GetPlayerPed(-1), 1.0)
     SetPedMotionBlur(GetPlayerPed(-1), false)
-    ESX.ShowNotification("You feel yourself come down from your high!")
+    ESX.ShowNotification(_U('comin_down'))
     onDrugs = false
 
 end)
 
-RegisterNetEvent('esx_drugs:selling')
-AddEventHandler('esx_drugs:selling', function()
+RegisterNetEvent('esx_jk_drugs:selling')
+AddEventHandler('esx_jk_drugs:selling', function()
 
-        local playerPed = PlayerPedId()
-        PedPosition        = GetEntityCoords(playerPed)
-        local PlayerCoords = { x = PedPosition.x, y = PedPosition.y, z = PedPosition.z }
-        
-        local x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
-        local plyPos = GetEntityCoords(GetPlayerPed(-1),  true)
-        local streetName, crossing = Citizen.InvokeNative( 0x2EB41072B4C1E4C0, plyPos.x, plyPos.y, plyPos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt() )
-        local streetName, crossing = GetStreetNameAtCoord(x, y, z)
-        streetName = GetStreetNameFromHashKey(streetName)
-        crossing = GetStreetNameFromHashKey(crossing)
+    local playerPed = PlayerPedId()
+    PedPosition        = GetEntityCoords(playerPed)
+    local PlayerCoords = { x = PedPosition.x, y = PedPosition.y, z = PedPosition.z }
+    
+    local x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local plyPos = GetEntityCoords(GetPlayerPed(-1),  true)
+    local streetName, crossing = Citizen.InvokeNative( 0x2EB41072B4C1E4C0, plyPos.x, plyPos.y, plyPos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt() )
+    local streetName, crossing = GetStreetNameAtCoord(x, y, z)
+    streetName = GetStreetNameFromHashKey(streetName)
+    crossing = GetStreetNameFromHashKey(crossing)
+	
+	if Config.UseESXPhone then
+        if crossing ~= nil then
 
-        if Config.UseGCPhone ~= true then
-            if crossing ~= nil then
-                local coords      = GetEntityCoords(GetPlayerPed(-1))
+            local coords      = GetEntityCoords(GetPlayerPed(-1))
 
-                TriggerServerEvent('esx_addons_gcphone:startCall', 'police', "Some shady prick is selling drugs on " .. streetName .. " and " .. crossing, PlayerCoords, {
-                    PlayerCoords = { x = PedPosition.x, y = PedPosition.y, z = PedPosition.z },
-                })
-            else
-                TriggerServerEvent('esx_addons_gcphone:startCall', "police", "Some shady prick is selling drugs on " .. streetName, PlayerCoords, {
-                    PlayerCoords = { x = PedPosition.x, y = PedPosition.y, z = PedPosition.z },
-                })
-            end
+            TriggerServerEvent('esx_phone:send', "police", "Some shady prick is selling drugs on " .. streetName .. " and " .. crossing, true, {
+                x = coords.x,
+                y = coords.y,
+                z = coords.z
+            })
+        else
+            TriggerServerEvent('esx_phone:send', "police", "Some shady prick is selling drugs on " .. streetName, true, {
+                x = coords.x,
+                y = coords.y,
+                z = coords.z
+            })
         end
+    elseif Config.UseGCPhone then
+        if crossing ~= nil then
+            local coords      = GetEntityCoords(GetPlayerPed(-1))
 
-        if Config.UseGCPhone ~= false then
-            if crossing ~= nil then
-
-                local coords      = GetEntityCoords(GetPlayerPed(-1))
-
-                TriggerServerEvent('esx_phone:send', "police", "Some shady prick is selling drugs on " .. streetName .. " and " .. crossing, true, {
-                    x = coords.x,
-                    y = coords.y,
-                    z = coords.z
-                })
-            else
-                TriggerServerEvent('esx_phone:send', "police", "Some shady prick is selling drugs on " .. streetName, true, {
-                    x = coords.x,
-                    y = coords.y,
-                    z = coords.z
-                })
-            end
+            TriggerServerEvent('esx_addons_gcphone:startCall', 'police', "Some shady prick is selling drugs on " .. streetName .. " and " .. crossing, PlayerCoords, {
+                PlayerCoords = { x = PedPosition.x, y = PedPosition.y, z = PedPosition.z },
+            })
+        else
+            TriggerServerEvent('esx_addons_gcphone:startCall', "police", "Some shady prick is selling drugs on " .. streetName, PlayerCoords, {
+                PlayerCoords = { x = PedPosition.x, y = PedPosition.y, z = PedPosition.z },
+            })
         end
+    else
+		TriggerServerEvent('esx_jk_drugs:policeAlert')
+	end
 end)

@@ -9,7 +9,7 @@ Citizen.CreateThread(function()
 		local coords = GetEntityCoords(PlayerPedId())
 
 		if GetDistanceBetweenCoords(coords, Config.FieldZones.WeedField.coords, true) < 20 then
-			TriggerEvent('esx:showNotification', "You smell a really strong skunky scent.")
+			TriggerEvent('esx:showNotification', _U('weed_field_close'))
 			SpawnWeedPlants()
 			Citizen.Wait(500)
 		else
@@ -26,7 +26,7 @@ Citizen.CreateThread(function()
 
 
 		if GetDistanceBetweenCoords(coords, Config.ProcessZones.WeedProcessing.coords, true) < 15 and GetDistanceBetweenCoords(coords, Config.ProcessZones.WeedProcessing.coords, true) > 10 then
-			ESX.ShowNotification("It smells like a weed farm over here")
+			ESX.ShowNotification(_U('weed_process_close'))
 		end
 		if GetDistanceBetweenCoords(coords, Config.ProcessZones.WeedProcessing.coords, true) < 1.5 then
 			ProcessWeed()
@@ -38,7 +38,7 @@ end)
 function ProcessWeed()
 	isProcessing = true
 
-	TriggerServerEvent('esx_drugs:processCannabis')
+	TriggerServerEvent('esx_jk_drugs:processCannabis')
 	local timeLeft = Config.Delays.WeedProcessing / 1000
 	local playerPed = PlayerPedId()
 
@@ -47,7 +47,7 @@ function ProcessWeed()
 		timeLeft = timeLeft - 1
 
 		if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.ProcessZones.WeedProcessing.coords, false) > 4 then
-			TriggerServerEvent('esx_drugs:cancelProcessing')
+			TriggerServerEvent('esx_jk_drugs:cancelProcessing')
 			break
 		end
 	end
@@ -69,7 +69,7 @@ Citizen.CreateThread(function()
 					wasOpen4 = true
 					OpenWeedDump()
 					if Config.EnableCops then
-						TriggerServerEvent('esx_drugs:selling')
+						TriggerServerEvent('esx_jk_drugs:selling')
 					end
 				end
 			else
@@ -115,7 +115,7 @@ function OpenWeedDump()
 			align    = 'top-left',
 			elements = elements
 		}, function(data, menu)
-			TriggerServerEvent('esx_drugs:sellWeed', data.current.name, data.current.value)
+			TriggerServerEvent('esx_jk_drugs:sellWeed', data.current.name, data.current.value)
 			menu.close()
 			menuOpen4 = false
 			end, function(data, menu)
@@ -128,7 +128,7 @@ function OpenWeedDump()
 			align    = 'top-left',
 			elements = elements
 		}, function(data, menu)
-			TriggerServerEvent('esx_drugs:sellWeed', data.current.name, data.current.value)
+			TriggerServerEvent('esx_jk_drugs:sellWeed', data.current.name, data.current.value)
 		end, function(data, menu)
 			menu.close()
 			menuOpen4 = false
@@ -160,7 +160,7 @@ Citizen.CreateThread(function()
 			if IsControlJustReleased(0, Keys['E']) and not isPickingUp then
 				isPickingUp = true
 
-				ESX.TriggerServerCallback('esx_drugs:canPickUp', function(canPickUp)
+				ESX.TriggerServerCallback('esx_jk_drugs:canPickUp', function(canPickUp)
 
 					if canPickUp then
 						TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
@@ -174,7 +174,7 @@ Citizen.CreateThread(function()
 						table.remove(weedPlants, nearbyID)
 						spawnedWeeds = spawnedWeeds - 1
 
-						TriggerServerEvent('esx_drugs:pickedUpCannabis')
+						TriggerServerEvent('esx_jk_drugs:pickedUpCannabis')
 					else
 						ESX.ShowNotification(_U('weed_inventoryfull'))
 					end

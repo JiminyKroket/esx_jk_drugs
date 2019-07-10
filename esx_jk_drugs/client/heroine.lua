@@ -7,7 +7,7 @@ Citizen.CreateThread(function()
 		local coords = GetEntityCoords(playerPed)
 
 		if GetDistanceBetweenCoords(coords, Config.ProcessZones.HeroineProcessing.coords, true) < 15 then
-			ESX.ShowNotification("Trevor might have something for you to do for cash")
+			ESX.ShowNotification(_U('heroine_process_close'))
 		end
 		if GetDistanceBetweenCoords(coords, Config.ProcessZones.HeroineProcessing.coords, true) < 1 then
 			ProcessHeroine()
@@ -19,7 +19,7 @@ end)
 function ProcessHeroine()
 	isProcessing = true
 
-	TriggerServerEvent('esx_drugs:processOpium')
+	TriggerServerEvent('esx_jk_drugs:processOpium')
 	local timeLeft = Config.Delays.HeroineProcessing / 1000
 	local playerPed = PlayerPedId()
 
@@ -28,7 +28,7 @@ function ProcessHeroine()
 		timeLeft = timeLeft - 1
 
 		if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.ProcessZones.HeroineProcessing.coords, false) > 4 then
-			TriggerServerEvent('esx_drugs:cancelProcessing')
+			TriggerServerEvent('esx_jk_drugs:cancelProcessing')
 			break
 		end
 	end
@@ -50,7 +50,7 @@ Citizen.CreateThread(function()
 					wasOpen1 = true
 					OpenHeroineDump()
 					if Config.EnableCops then
-						TriggerServerEvent('esx_drugs:selling')
+						TriggerServerEvent('esx_jk_drugs:selling')
 					end
 				end
 			else
@@ -96,7 +96,7 @@ function OpenHeroineDump()
 			align    = 'top-left',
 			elements = elements
 		}, function(data, menu)
-			TriggerServerEvent('esx_drugs:sellHeroine', data.current.name, data.current.value)
+			TriggerServerEvent('esx_jk_drugs:sellHeroine', data.current.name, data.current.value)
 			menu.close()
 			menuOpen1 = false
 			end, function(data, menu)
@@ -109,7 +109,7 @@ function OpenHeroineDump()
 			align    = 'top-left',
 			elements = elements
 		}, function(data, menu)
-			TriggerServerEvent('esx_drugs:sellHeroine', data.current.name, data.current.value)
+			TriggerServerEvent('esx_jk_drugs:sellHeroine', data.current.name, data.current.value)
 		end, function(data, menu)
 			menu.close()
 			menuOpen1 = false
