@@ -5,13 +5,11 @@ Citizen.CreateThread(function()
 		Citizen.Wait(0)
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)
-		local loaded = false
-
 
 		if GetDistanceBetweenCoords(coords, Config.ProcessZones.CrackProcessing.coords, true) < 15 and GetDistanceBetweenCoords(coords, Config.ProcessZones.CrackProcessing.coords, true) > 10 then
 			ESX.ShowNotification(_U('crack_process_close'))
 		end
-		if GetDistanceBetweenCoords(coords, Config.ProcessZones.CrackProcessing.coords, true) < 1.5 then
+		if GetDistanceBetweenCoords(coords, Config.ProcessZones.CrackProcessing.coords, true) < 1.5 and not isProcessing then
 			ProcessCoke()
 			Citizen.Wait(500)
 		end
@@ -34,7 +32,6 @@ function ProcessCoke()
 			break
 		end
 	end
-
 	isProcessing = false
 end
 
@@ -48,11 +45,15 @@ Citizen.CreateThread(function()
 			if not menuOpen5 then
 				ESX.ShowHelpNotification(_U('crack_sell'))
 
-				if IsControlJustReleased(0, Keys['E']) then
+				if IsControlJustReleased(0, 38) then
 					wasOpen5 = true
 					OpenCrackDump()
-					if Config.EnableCops then
-						TriggerServerEvent('esx_jk_drugs:selling')
+					if Config.EnableCops then	
+						local percent = math.random(11)
+
+						if percent <= 2 or percent >= 10 then
+						TriggerEvent('esx_jk_drugs:selling', source)	
+						end
 					end
 				end
 			else

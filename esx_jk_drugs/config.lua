@@ -7,12 +7,14 @@ Config.ZoneSize     = {x = 1.0, y = 1.0, z = -1.0}
 Config.MarkerColor  = {r = 100, g = 204, b = 100}
 Config.ShowBlips	= true -- Ehh, hopefully self explanatory... but if not it shows the pictures on the map for you
 Config.ShowMarkers 	= false -- Ehh, hopefully self explanatory... but if not it shows the circles on the ground for you
+Config.MultPlant	= false -- Will give up to three of each product when a plant is picked
 
 --Cop Stuff--
 Config.GiveBlack = true -- Disable to give regular cash when selling drugs
 Config.ForceMulti	= false -- Force sellers to have to open the menu after every deal (chance to send notification)
-Config.EnableCops   = true -- Set true to send police notification (uses esx_phone)
-Config.UseGCPhone		= true -- Use GCphone instead of esx_phone
+Config.EnableCops   = true -- Set true to send police notification (uses esx:notification)
+Config.UseESXPhone	= false -- Use ESXPhone/ALPhone instead of ESXNotification
+Config.UseGCPhone	= true -- Use GCphone instead of ESXNotification
 Config.RequireCops	= true -- Requires Police online to sell drugs
 Config.RequiredCopsCoke  = 1
 Config.RequiredCopsMeth  = 1
@@ -69,7 +71,7 @@ Config.FieldZones = {
 	WeedField = {coords = vector3(2224.2, 5566.53, 54.06)},
 	CocaineField = {coords = vector3(1849.8, 4914.2, 44.92)},
 	EphedrineField = {coords = vector3(1591.18, -1982.81, 95.12)},
-	PoppyField = {coords = vector3(-1815.83, 1972.43, 132.71)},
+	PoppyField = {coords = vector3(-1800.83, 1990.43, 132.71)},
 }
 
 Config.ProcessZones = {
@@ -97,5 +99,5 @@ Config.Peds = {
 	EphedrineProcess =	{ ped = 516505552, x = -1079.49, y = -1679.92,	z = 3.58,	h = 181.96 },
 	MethProcess =		{ ped = 516505552, x = 1976.83,	y = 3819.67,	z = 32.45,	h = 120.83 },
 	OpiumProcess =		{ ped = -730659924, x = 3559.03, y = 3674.78,	z = 27.12,	h = 224.32 },
-	CrackProcess =		{ ped = -730659924, x = 973.68, y = -100.35,	z = 73.85,	h = 277.73 },
+	CrackProcess =		{ ped = -264140789, x = 973.68, y = -100.35,	z = 73.85,	h = 277.73 },
 }

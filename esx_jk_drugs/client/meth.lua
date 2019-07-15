@@ -6,10 +6,10 @@ Citizen.CreateThread(function()
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)
 
-		if GetDistanceBetweenCoords(coords, Config.ProcessZones.MethProcessing.coords, true) < 15 then
+		if GetDistanceBetweenCoords(coords, Config.ProcessZones.MethProcessing.coords, true) < 15 and GetDistanceBetweenCoords(coords, Config.ProcessZones.MethProcessing.coords, true) > 10 then
 			ESX.ShowNotification(_U('meth_process_close'))
 		end
-		if GetDistanceBetweenCoords(coords, Config.ProcessZones.MethProcessing.coords, true) < 1 then
+		if GetDistanceBetweenCoords(coords, Config.ProcessZones.MethProcessing.coords, true) < 1.5 and not isProcessing then
 			ProcessEphedrine()
 			Citizen.Wait(500)
 		end
@@ -32,7 +32,6 @@ function ProcessEphedrine()
 			break
 		end
 	end
-
 	isProcessing = false
 end
 
@@ -46,11 +45,15 @@ Citizen.CreateThread(function()
 			if not menuOpen2 then
 				ESX.ShowHelpNotification(_U('meth_sell'))
 
-				if IsControlJustReleased(0, Keys['E']) then
+				if IsControlJustReleased(0, 38) then
 					wasOpen2 = true
 					OpenMethDump()
-					if Config.EnableCops then
-						TriggerServerEvent('esx_jk_drugs:selling')
+					if Config.EnableCops then	
+						local percent = math.random(11)
+
+						if percent <= 2 or percent >= 10 then
+						TriggerEvent('esx_jk_drugs:selling', source)	
+						end
 					end
 				end
 			else

@@ -301,7 +301,14 @@ AddEventHandler('esx_jk_drugs:pickedUpCannabis', function()
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local xItem = xPlayer.getInventoryItem('cannabis')
 
-	if xItem.limit ~= -1 and (xItem.count + 1) > xItem.limit then
+	if Config.MultiPlant then
+		local picked = math.random(3)
+		if xItem.limit ~= -1 and (xItem.count + picked) > xItem.limit then
+			TriggerClientEvent('esx:showNotification', _source, _U('weed_inventoryfull'))
+		else
+			xPlayer.addInventoryItem(xItem.name, picked)
+		end
+	elseif xItem.limit ~= -1 and (xItem.count + 1) > xItem.limit then
 		TriggerClientEvent('esx:showNotification', _source, _U('weed_inventoryfull'))
 	else
 		xPlayer.addInventoryItem(xItem.name, 1)
@@ -323,8 +330,15 @@ RegisterServerEvent('esx_jk_drugs:pickedUpCocaPlant')
 AddEventHandler('esx_jk_drugs:pickedUpCocaPlant', function()
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local xItem = xPlayer.getInventoryItem('coca')
-
-	if xItem.limit ~= -1 and (xItem.count + 1) > xItem.limit then
+	
+	if Config.MultiPlant then
+		local picked = math.random(3)
+		if xItem.limit ~= -1 and (xItem.count + picked) > xItem.limit then
+			TriggerClientEvent('esx:showNotification', _source, _U('cocaine_inventoryfull'))
+		else
+			xPlayer.addInventoryItem(xItem.name, picked)
+		end
+	elseif xItem.limit ~= -1 and (xItem.count + 1) > xItem.limit then
 		TriggerClientEvent('esx:showNotification', _source, _U('cocaine_inventoryfull'))
 	else
 		xPlayer.addInventoryItem(xItem.name, 1)
@@ -347,7 +361,14 @@ AddEventHandler('esx_jk_drugs:pickedUpEphedra', function()
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local xItem = xPlayer.getInventoryItem('ephedra')
 
-	if xItem.limit ~= -1 and (xItem.count + 1) > xItem.limit then
+	if Config.MultiPlant then
+		local picked = math.random(3)
+		if xItem.limit ~= -1 and (xItem.count + picked) > xItem.limit then
+			TriggerClientEvent('esx:showNotification', _source, _U('ephedra_inventoryfull'))
+		else
+			xPlayer.addInventoryItem(xItem.name, picked)
+		end
+	elseif xItem.limit ~= -1 and (xItem.count + 1) > xItem.limit then
 		TriggerClientEvent('esx:showNotification', _source, _U('ephedra_inventoryfull'))
 	else
 		xPlayer.addInventoryItem(xItem.name, 1)
@@ -369,8 +390,15 @@ RegisterServerEvent('esx_jk_drugs:pickedUpPoppy')
 AddEventHandler('esx_jk_drugs:pickedUpPoppy', function()
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local xItem = xPlayer.getInventoryItem('poppy')
-
-	if xItem.limit ~= -1 and (xItem.count + 1) > xItem.limit then
+	
+	if Config.MultiPlant then
+		local picked = math.random(3)
+		if xItem.limit ~= -1 and (xItem.count + picked) > xItem.limit then
+			TriggerClientEvent('esx:showNotification', _source, _U('opium_inventoryfull'))
+		else
+			xPlayer.addInventoryItem(xItem.name, picked)
+		end
+	elseif xItem.limit ~= -1 and (xItem.count + 1) > xItem.limit then
 		TriggerClientEvent('esx:showNotification', _source, _U('opium_inventoryfull'))
 	else
 		xPlayer.addInventoryItem(xItem.name, 1)
@@ -646,16 +674,6 @@ AddEventHandler('esx_jk_drugs:restrictedArea', function()
 	end
 end)
 
-RegisterServerEvent('esx_jk_drugs:selling')
-AddEventHandler('esx_jk_drugs:selling', function()
-
-	local percent = math.random(1, 11)
-
-  	if percent <= 2 or percent >= 10 then
-  		TriggerClientEvent('esx_jk_drugs:selling', source)	
-  	end
-end)
-
 RegisterServerEvent('esx_jk_drugs:testResultsFail')
 AddEventHandler('esx_jk_drugs:testResultsFail', function()
 	local _source = source
@@ -762,6 +780,23 @@ AddEventHandler('esx_jk_drugs:removeItem', function(item)
 	local xPlayer = ESX.GetPlayerFromId(_source)
 
 	xPlayer.removeInventoryItem(item, 1)
+end)
+
+RegisterServerEvent('esx_jk_drugs:giveItem')
+AddEventHandler('esx_jk_drugs:giveItem', function(itemName)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	local xItem = xPlayer.getInventoryItem(itemName)
+	local count = 1
+
+	if xItem.limit ~= -1 then
+		count = xItem.limit - xItem.count
+	end
+
+	if xItem.count < xItem.limit then
+		xPlayer.addInventoryItem(itemName, count)
+	else
+		TriggerClientEvent('esx:showNotification', source, "You're at maximum items")
+	end
 end)
 
 ESX.RegisterUsableItem('marijuana', function(source)

@@ -1,4 +1,4 @@
-local spawnedCoca = 5
+local spawnedCoca = 1
 local cocaPlants = {}
 local isPickingUp, isProcessing = false, false
 
@@ -27,7 +27,7 @@ Citizen.CreateThread(function()
 		if GetDistanceBetweenCoords(coords, Config.ProcessZones.CocaineProcessing.coords, true) < 15 and GetDistanceBetweenCoords(coords, Config.ProcessZones.CocaineProcessing.coords, true) > 10 then
 			ESX.ShowNotification(_U('cocaine_process_close'))
 		end
-		if GetDistanceBetweenCoords(coords, Config.ProcessZones.CocaineProcessing.coords, true) < 1 then
+		if GetDistanceBetweenCoords(coords, Config.ProcessZones.CocaineProcessing.coords, true) < 1.5 and not isProcessing then
 			ProcessCoca()
 			Citizen.Wait(500)
 		end
@@ -50,7 +50,6 @@ function ProcessCoca()
 			break
 		end
 	end
-
 	isProcessing = false
 end
 
@@ -64,11 +63,15 @@ Citizen.CreateThread(function()
 			if not menuOpen then
 				ESX.ShowHelpNotification(_U('cocaine_sell'))
 
-				if IsControlJustReleased(0, Keys['E']) then
+				if IsControlJustReleased(0, 38) then
 					wasOpen = true
 					OpenCocaineDump()
-					if Config.EnableCops then
-						TriggerServerEvent('esx_jk_drugs:selling')
+					if Config.EnableCops then	
+						local percent = math.random(11)
+
+						if percent <= 2 or percent >= 10 then
+						TriggerEvent('esx_jk_drugs:selling', source)	
+						end
 					end
 				end
 			else
@@ -79,7 +82,6 @@ Citizen.CreateThread(function()
 				wasOpen = false
 				ESX.UI.Menu.CloseAll()
 			end
-
 			Citizen.Wait(500)
 		end
 	end
@@ -156,39 +158,33 @@ Citizen.CreateThread(function()
 				ESX.ShowHelpNotification(_U('cocaine_pickupprompt'))
 			end
 
-			if IsControlJustReleased(0, Keys['E']) and not isPickingUp then
+			if IsControlJustReleased(0, 38) and not isPickingUp then
 				isPickingUp = true
 
 				ESX.TriggerServerCallback('esx_jk_drugs:canPickUp', function(canPickUp)
 
 					if canPickUp then
 						TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
-
-						Citizen.Wait(2000)
-						ClearPedTasks(playerPed)
-						Citizen.Wait(1500)
-
 						ESX.Game.DeleteObject(nearbyObject)
 
 						table.remove(cocaPlants, nearbyID)
 						spawnedCoca = spawnedCoca - 1
 
+						Citizen.Wait(1250)
+						ClearPedTasks(playerPed)
+						Citizen.Wait(1500)
+
 						TriggerServerEvent('esx_jk_drugs:pickedUpCocaPlant')
 					else
 						ESX.ShowNotification(_U('cocaine_inventoryfull'))
 					end
-
-					isPickingUp = false
-
 				end, 'cocaine')
+				isPickingUp = false
 			end
-
 		else
 			Citizen.Wait(500)
 		end
-
 	end
-
 end)
 
 AddEventHandler('onResourceStop', function(resource)
@@ -200,7 +196,7 @@ AddEventHandler('onResourceStop', function(resource)
 end)
 
 function SpawnCocaPlants()
-	while spawnedCoca < 25 do
+	while spawnedCoca < 10 do
 		Citizen.Wait(0)
 		local cocaCoords = GenerateCocaCoords()
 
@@ -270,6 +266,5 @@ function GetCoordZ(x, y)
 			return z
 		end
 	end
-
 	return 43.0
 end

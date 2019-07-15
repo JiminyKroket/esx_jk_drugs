@@ -1,4 +1,4 @@
-local spawnedPoppy = 0
+local spawnedPoppy = 1
 local poppyPlants = {}
 local isPickingUp, isProcessing = false, false
 
@@ -24,10 +24,10 @@ Citizen.CreateThread(function()
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)
 
-		if GetDistanceBetweenCoords(coords, Config.ProcessZones.PoppyProcessing.coords, true) < 15 then
+		if GetDistanceBetweenCoords(coords, Config.ProcessZones.PoppyProcessing.coords, true) < 15 and GetDistanceBetweenCoords(coords, Config.ProcessZones.PoppyProcessing.coords, true) > 10 then
 			ESX.ShowNotification(_U('opium_process_close'))
 		end
-		if GetDistanceBetweenCoords(coords, Config.ProcessZones.PoppyProcessing.coords, true) < 1 then
+		if GetDistanceBetweenCoords(coords, Config.ProcessZones.PoppyProcessing.coords, true) < 1.5 and not isProcessing then
 			ProcessPoppy()
 			Citizen.Wait(500)
 		end
@@ -50,7 +50,6 @@ function ProcessPoppy()
 			break
 		end
 	end
-
 	isProcessing = false
 end
 
@@ -64,11 +63,15 @@ Citizen.CreateThread(function()
 			if not menuOpen3 then
 				ESX.ShowHelpNotification(_U('opium_sell'))
 
-				if IsControlJustReleased(0, Keys['E']) then
+				if IsControlJustReleased(0, 38) then
 					wasOpen3 = true
 					OpenOpiumDump()
-					if Config.EnableCops then
-						TriggerServerEvent('esx_jk_drugs:selling')
+					if Config.EnableCops then	
+						local percent = math.random(11)
+
+						if percent <= 2 or percent >= 10 then
+						TriggerEvent('esx_jk_drugs:selling', source)	
+						end
 					end
 				end
 			else
@@ -156,39 +159,33 @@ Citizen.CreateThread(function()
 				ESX.ShowHelpNotification(_U('opium_pickupprompt'))
 			end
 
-			if IsControlJustReleased(0, Keys['E']) and not isPickingUp then
+			if IsControlJustReleased(0, 38) and not isPickingUp then
 				isPickingUp = true
 
 				ESX.TriggerServerCallback('esx_jk_drugs:canPickUp', function(canPickUp)
 
 					if canPickUp then
 						TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
-
-						Citizen.Wait(2000)
-						ClearPedTasks(playerPed)
-						Citizen.Wait(1500)
-
 						ESX.Game.DeleteObject(nearbyObject)
 
 						table.remove(poppyPlants, nearbyID)
 						spawnedPoppy = spawnedPoppy - 1
 
+						Citizen.Wait(1250)
+						ClearPedTasks(playerPed)
+						Citizen.Wait(1500)
+
 						TriggerServerEvent('esx_jk_drugs:pickedUpPoppy')
 					else
 						ESX.ShowNotification(_U('opium_inventoryfull'))
 					end
-
-					isPickingUp = false
-
 				end, 'opium')
+				isPickingUp = false
 			end
-
 		else
 			Citizen.Wait(500)
 		end
-
 	end
-
 end)
 
 AddEventHandler('onResourceStop', function(resource)
@@ -200,7 +197,7 @@ AddEventHandler('onResourceStop', function(resource)
 end)
 
 function SpawnPoppyPlants()
-	while spawnedPoppy < 25 do
+	while spawnedPoppy < 10 do
 		Citizen.Wait(0)
 		local poppyCoords = GeneratePoppyCoords()
 
@@ -261,7 +258,7 @@ function GeneratePoppyCoords()
 end
 
 function GetCoordZ(x, y)
-	local groundCheckHeights = { 115.0, 116.0, 117.0, 118.0, 119.0, 120.0, 121.0, 122.0, 123.0, 124.0, 125.0, 126., 127.0, 128.0, 129.0, 130.0, 131.0, 132.0, 133.0, 134.0, 135.0, 136.0, 137.0, 138.0, 139.0, 140.0 }
+	local groundCheckHeights = { 115.0, 116.0, 117.0, 118.0, 119.0, 120.0, 121.0, 122.0, 123.0, 124.0, 125.0, 126., 127.0, 128.0, 129.0, 130.0, 131.0, 132.0, 133.0, 134.0, 135.0, 136.0, 137.0, 138.0, 139.0, 140.0, 141.0, 142.0, 143.0, 144.0 }
 
 	for i, height in ipairs(groundCheckHeights) do
 		local foundGround, z = GetGroundZFor_3dCoord(x, y, height)

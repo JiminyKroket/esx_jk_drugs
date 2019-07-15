@@ -1,4 +1,4 @@
-local spawnedWeeds = 2
+local spawnedWeeds = 1
 local weedPlants = {}
 local isPickingUp, isProcessing = false, false
 
@@ -24,11 +24,10 @@ Citizen.CreateThread(function()
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)
 
-
 		if GetDistanceBetweenCoords(coords, Config.ProcessZones.WeedProcessing.coords, true) < 15 and GetDistanceBetweenCoords(coords, Config.ProcessZones.WeedProcessing.coords, true) > 10 then
 			ESX.ShowNotification(_U('weed_process_close'))
 		end
-		if GetDistanceBetweenCoords(coords, Config.ProcessZones.WeedProcessing.coords, true) < 1.5 then
+		if GetDistanceBetweenCoords(coords, Config.ProcessZones.WeedProcessing.coords, true) < 1.5 and not isProcessing then
 			ProcessWeed()
 			Citizen.Wait(500)
 		end
@@ -51,7 +50,6 @@ function ProcessWeed()
 			break
 		end
 	end
-
 	isProcessing = false
 end
 
@@ -65,11 +63,15 @@ Citizen.CreateThread(function()
 			if not menuOpen4 then
 				ESX.ShowHelpNotification(_U('weed_sell'))
 
-				if IsControlJustReleased(0, Keys['E']) then
+				if IsControlJustReleased(0, 38) then
 					wasOpen4 = true
 					OpenWeedDump()
-					if Config.EnableCops then
-						TriggerServerEvent('esx_jk_drugs:selling')
+					if Config.EnableCops then	
+						local percent = math.random(11)
+
+						if percent <= 2 or percent >= 10 then
+						TriggerEvent('esx_jk_drugs:selling', source)	
+						end
 					end
 				end
 			else
@@ -157,39 +159,33 @@ Citizen.CreateThread(function()
 				ESX.ShowHelpNotification(_U('weed_pickupprompt'))
 			end
 
-			if IsControlJustReleased(0, Keys['E']) and not isPickingUp then
+			if IsControlJustReleased(0, 38) and not isPickingUp then
 				isPickingUp = true
 
 				ESX.TriggerServerCallback('esx_jk_drugs:canPickUp', function(canPickUp)
 
 					if canPickUp then
 						TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
-
-						Citizen.Wait(2000)
-						ClearPedTasks(playerPed)
-						Citizen.Wait(1500)
-
 						ESX.Game.DeleteObject(nearbyObject)
 
 						table.remove(weedPlants, nearbyID)
 						spawnedWeeds = spawnedWeeds - 1
 
+						Citizen.Wait(1250)
+						ClearPedTasks(playerPed)
+						Citizen.Wait(1500)
+
 						TriggerServerEvent('esx_jk_drugs:pickedUpCannabis')
 					else
 						ESX.ShowNotification(_U('weed_inventoryfull'))
 					end
-
-					isPickingUp = false
-
 				end, 'cannabis')
+				isPickingUp = false
 			end
-
 		else
 			Citizen.Wait(500)
 		end
-
 	end
-
 end)
 
 AddEventHandler('onResourceStop', function(resource)
@@ -201,7 +197,7 @@ AddEventHandler('onResourceStop', function(resource)
 end)
 
 function SpawnWeedPlants()
-	while spawnedWeeds < 15 do
+	while spawnedWeeds < 10 do
 		Citizen.Wait(0)
 		local weedCoords = GenerateWeedCoords()
 
@@ -220,7 +216,7 @@ function ValidateWeedCoord(plantCoord)
 		local validate = true
 
 		for k, v in pairs(weedPlants) do
-			if GetDistanceBetweenCoords(plantCoord, GetEntityCoords(v), true) < 0.5 then
+			if GetDistanceBetweenCoords(plantCoord, GetEntityCoords(v), true) < 5 then
 				validate = false
 			end
 		end

@@ -1,18 +1,20 @@
-local spawnedEphedra = 5
+local spawnedEphedra = 1
 local ephedraPlants = {}
 local isPickingUp, isProcessing = false, false
 
 
 Citizen.CreateThread(function()
 	while true do
-		Citizen.Wait(5)
+		Citizen.Wait(10)
 		local coords = GetEntityCoords(PlayerPedId())
 
-		if GetDistanceBetweenCoords(coords, Config.FieldZones.EphedrineField.coords, true) < 100 then
+		if GetDistanceBetweenCoords(coords, Config.FieldZones.EphedrineField.coords, true) < 50 then
+			local roll = math.random(50)
 			TriggerEvent('esx:showNotification', _U('ephedrine_field_close'))
-			TriggerServerEvent('esx_jk_drugs:restrictedArea')
+			if roll == 8 then
+				TriggerEvent('esx_jk_drugs:restricted')
+			end
 			SpawnEphedraPlants()
-			
 			Citizen.Wait(500)
 		else
 			Citizen.Wait(500)
@@ -29,7 +31,7 @@ Citizen.CreateThread(function()
 		if GetDistanceBetweenCoords(coords, Config.ProcessZones.EphedrineProcessing.coords, true) < 15 and GetDistanceBetweenCoords(coords, Config.ProcessZones.EphedrineProcessing.coords, true) > 10 then
 			ESX.ShowNotification(_U('ephedrine_process_close'))
 		end
-		if GetDistanceBetweenCoords(coords, Config.ProcessZones.EphedrineProcessing.coords, true) < 1 then
+		if GetDistanceBetweenCoords(coords, Config.ProcessZones.EphedrineProcessing.coords, true) < 1.5 and not isProcessing then
 			ProcessEphedra()
 			Citizen.Wait(500)
 		end
@@ -52,7 +54,6 @@ function ProcessEphedra()
 			break
 		end
 	end
-
 	isProcessing = false
 end
 
@@ -75,33 +76,29 @@ Citizen.CreateThread(function()
 				ESX.ShowHelpNotification(_U('ephedrine_pickupprompt'))
 			end
 
-			if IsControlJustReleased(0, Keys['E']) and not isPickingUp then
+			if not isPickingUp and IsControlJustReleased(0, 38) then
 				isPickingUp = true
 
 				ESX.TriggerServerCallback('esx_jk_drugs:canPickUp', function(canPickUp)
 
 					if canPickUp then
 						TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
-
-						Citizen.Wait(2000)
-						ClearPedTasks(playerPed)
-						Citizen.Wait(1500)
-		
 						ESX.Game.DeleteObject(nearbyObject)
 		
 						table.remove(ephedraPlants, nearbyID)
 						spawnedEphedra = spawnedEphedra - 1
+
+						Citizen.Wait(1250)
+						ClearPedTasks(playerPed)
+						Citizen.Wait(1500)
 		
 						TriggerServerEvent('esx_jk_drugs:pickedUpEphedra')
 					else
 						ESX.ShowNotification(_U('ephedrine_inventoryfull'))
 					end
-
-					isPickingUp = false
-
 				end, 'ephedrine')
+				isPickingUp = false
 			end
-
 		else
 			Citizen.Wait(500)
 		end
@@ -119,7 +116,7 @@ AddEventHandler('onResourceStop', function(resource)
 end)
 
 function SpawnEphedraPlants()
-	while spawnedEphedra < 25 do
+	while spawnedEphedra < 10 do
 		Citizen.Wait(0)
 		local ephedraCoords = GenerateEphedraCoords()
 
@@ -189,6 +186,5 @@ function GetCoordZ(x, y)
 			return z
 		end
 	end
-
 	return 95.0
 end
