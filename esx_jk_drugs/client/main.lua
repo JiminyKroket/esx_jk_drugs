@@ -621,10 +621,9 @@ end))
 -- Give Cops access to test kits
 
 Citizen.CreateThread(function()
-    local PlayerData = ESX.GetPlayerData()
     while true do
         Citizen.Wait(0)	
-        if PlayerData.job ~= nil and PlayerData.job.name == 'police' then
+        if ESX.PlayerData.job ~= nil and ESX.PlayerData.job.name == 'police' then
         
             local coords = GetEntityCoords(GetPlayerPed(-1))
 
