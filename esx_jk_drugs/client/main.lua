@@ -616,4 +616,28 @@ AddEventHandler('esx_jk_drugs:restricted', function()
     else
 		TriggerServerEvent('esx_jk_drugs:restrictedArea')
 	end
+end))
+
+-- Give Cops access to test kits
+
+Citizen.CreateThread(function()
+    local PlayerData = ESX.GetPlayerData()
+    while true do
+        Citizen.Wait(0)	
+        if PlayerData.job ~= nil and PlayerData.job.name == 'police' then
+        
+            local coords = GetEntityCoords(GetPlayerPed(-1))
+
+            if GetDistanceBetweenCoords(coords, 461.6, -979.56, 30.69, true) < 15 then
+                DrawMarker(21, 461.6, -979.56, 30.69, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.5, 1.5, 0.5, 50, 50, 204, 100, true, true, 2, false, false, false, false)
+            end
+        
+            if GetDistanceBetweenCoords(coords, 461.6, -979.56, 30.69, true) < 1 then
+                ESX.ShowNotification("You grabbed some test kits")
+                TriggerServerEvent('esx_jk_drugs:giveItem', 'drugtest')
+                TriggerServerEvent('esx_jk_drugs:giveItem', 'breathalyzer')
+                Citizen.Wait(10000)
+            end
+        end
+    end
 end)
