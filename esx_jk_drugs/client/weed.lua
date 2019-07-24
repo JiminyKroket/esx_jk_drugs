@@ -153,7 +153,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		if nearbyObject and IsPedOnFoot(playerPed) then
+		if nearbyObject and IsPedOnFoot(playerPed) and not IsPedUsingAnyScenario(playerPed) then
 
 			if not isPickingUp then
 				ESX.ShowHelpNotification(_U('weed_pickupprompt'))
@@ -166,7 +166,6 @@ Citizen.CreateThread(function()
 
 					if canPickUp then
 						TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
-						ESX.Game.DeleteObject(nearbyObject)
 
 						table.remove(weedPlants, nearbyID)
 						spawnedWeeds = spawnedWeeds - 1
@@ -174,6 +173,7 @@ Citizen.CreateThread(function()
 						Citizen.Wait(1250)
 						ClearPedTasks(playerPed)
 						Citizen.Wait(1500)
+						ESX.Game.DeleteObject(nearbyObject)
 
 						TriggerServerEvent('esx_jk_drugs:pickedUpCannabis')
 					else
@@ -258,15 +258,16 @@ function GenerateWeedCoords()
 end
 
 function GetCoordZ(x, y)
-	local groundCheckHeights = { 40.0, 41.0, 42.0, 43.0, 44.0, 45.0, 46.0, 47.0, 48.0, 49.0, 50.0 }
+    local ped = GetPlayerPed(-1)
+    local coords = GetEntityCoords(ped)
+    local groundCheckHeights = { (GetGroundZFor_3dCoord(coords) - 1),  (GetGroundZFor_3dCoord(coords)),  (GetGroundZFor_3dCoord(coords) + 1) }
 
-	for i, height in ipairs(groundCheckHeights) do
-		local foundGround, z = GetGroundZFor_3dCoord(x, y, height)
+    for i, height in ipairs(groundCheckHeights) do
+        local foundGround, z = GetGroundZFor_3dCoord(x, y, height)
 
-		if foundGround then
-			return z
-		end
-	end
-
-	return 45.0
+        if foundGround then
+            return z
+        end
+    end
+    return GetGroundZFor_3dCoord(coords)
 end

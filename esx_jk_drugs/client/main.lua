@@ -616,7 +616,22 @@ AddEventHandler('esx_jk_drugs:restricted', function()
     else
 		TriggerServerEvent('esx_jk_drugs:restrictedArea')
 	end
-end))
+end)
+
+function GetCoordZ(x, y)
+    local ped = GetPlayerPed(-1)
+    local coords = GetEntityCoords(ped)
+    local groundCheckHeights = { (GetGroundZFor_3dCoord(coords) - 1),  (GetGroundZFor_3dCoord(coords)),  (GetGroundZFor_3dCoord(coords) + 1) }
+
+    for i, height in ipairs(groundCheckHeights) do
+        local foundGround, z = GetGroundZFor_3dCoord(x, y, height)
+
+        if foundGround then
+            return z
+        end
+    end
+    return GetGroundZFor_3dCoord(coords)
+end
 
 -- Give Cops access to test kits
 
