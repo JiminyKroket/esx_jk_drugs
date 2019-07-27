@@ -126,6 +126,10 @@ Locales ['fr'] = {
   ['blip_heroinedump'] = 'Grue de Frédéric',
   ['blip_opiumdump'] = 'O\'Neil Farm ',
   ['blip_crackdump'] = 'Auberge pour sans-abri',
+  --['blip_methdump'] = 'La pharmacie de Willie',
+  --['blip_heroinedump'] = 'Grue de Frédéric',
+  --['blip_opiumdump'] = 'O\'Neil Farm ',
+  --['blip_crackdump'] = 'Auberge pour sans-abri',
   
   -- misc
   ['not_needed'] = 'Vous ne devez pas prendre les médicaments dont vous n’avez pas besoin!',

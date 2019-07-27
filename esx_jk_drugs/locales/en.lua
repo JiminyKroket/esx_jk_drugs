@@ -124,6 +124,10 @@ Locales ['en'] = {
   ['blip_heroinedump'] = 'Frederick\'s Crane',
   ['blip_opiumdump'] = 'O\'Neil Farm',
   ['blip_crackdump'] = 'Homeless Hostel',
+  ['blip_weedfield'] = 'Senora Farm',
+  ['blip_cokefield'] = 'Cotton Field',
+  ['blip_poppyfield'] = 'Wong Property',
+  ['blip_ephedrinefield'] = 'Restricted Area',
   
   -- misc
   ['not_needed'] = 'You shouldn\'t take drugs you don\'t need!',

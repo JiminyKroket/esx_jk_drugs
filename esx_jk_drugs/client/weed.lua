@@ -247,7 +247,8 @@ function GenerateWeedCoords()
 
 		weedCoordX = Config.FieldZones.WeedField.coords.x + modX
 		weedCoordY = Config.FieldZones.WeedField.coords.y + modY
-
+		
+		
 		local coordZ = GetCoordZ(weedCoordX, weedCoordY)
 		local coord = vector3(weedCoordX, weedCoordY, coordZ)
 
@@ -258,16 +259,14 @@ function GenerateWeedCoords()
 end
 
 function GetCoordZ(x, y)
-    local ped = GetPlayerPed(-1)
-    local coords = GetEntityCoords(ped)
-    local groundCheckHeights = { (GetGroundZFor_3dCoord(coords) - 1),  (GetGroundZFor_3dCoord(coords)),  (GetGroundZFor_3dCoord(coords) + 1) }
+	local groundCheckHeights = { 40.0, 41.0, 42.0, 43.0, 44.0, 45.0, 46.0, 47.0, 48.0, 49.0, 50.0 }
 
-    for i, height in ipairs(groundCheckHeights) do
-        local foundGround, z = GetGroundZFor_3dCoord(x, y, height)
+	for i, height in ipairs(groundCheckHeights) do
+		local foundGround, z = GetGroundZFor_3dCoord(x, y, height)
 
-        if foundGround then
-            return z
-        end
-    end
-    return GetGroundZFor_3dCoord(coords)
+		if foundGround then
+			return z
+		end
+	end
+	return 45.0
 end

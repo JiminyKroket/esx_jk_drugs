@@ -1,6 +1,7 @@
 ESX = nil
 local menuOpen = false
 local wasOpen = false
+local count = 0
 
 Citizen.CreateThread(function()
     while ESX == nil do
@@ -59,6 +60,12 @@ Citizen.CreateThread(function()
                     DrawMarker(Config.MarkerType, v.coords, 0.0, 0.0, 0.0, 0, 0.0, 0.0, Config.ZoneSize.x, Config.ZoneSize.y, Config.ZoneSize.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, false, false, false, false)
                 end
             end
+			
+			for k,v in pairs(Config.FieldZones) do
+                if GetDistanceBetweenCoords(coords, v.coords, true) < Config.DrawDistance then
+                    DrawMarker(Config.MarkerType, v.coords, 0.0, 0.0, 0.0, 0, 0.0, 0.0, Config.ZoneSize.x, Config.ZoneSize.y, Config.ZoneSize.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, false, false, false, false)
+                end
+            end
 
             for k,v in pairs(Config.ProcessZones) do
                 if GetDistanceBetweenCoords(coords, v.coords, true) < Config.DrawDistance then
@@ -73,6 +80,10 @@ Citizen.CreateThread(function()
 
     if Config.ShowBlips then
         for k,v in pairs(Config.DumpZones) do
+            CreateBlipCircle(v.coords, v.name, v.radius, v.color, v.sprite)
+        end
+		
+		for k,v in pairs(Config.FieldZones) do
             CreateBlipCircle(v.coords, v.name, v.radius, v.color, v.sprite)
         end
 
@@ -349,7 +360,6 @@ AddEventHandler('esx_jk_drugs:icedOut', function()
         Citizen.Wait(0)
     end
     onDrugs = true
-	count = 0
     DoScreenFadeOut(1000)
     Citizen.Wait(1000)
     SetPedMotionBlur(GetPlayerPed(-1), true)
@@ -379,7 +389,6 @@ AddEventHandler('esx_jk_drugs:noddinOut', function()
         Citizen.Wait(0)
     end
     onDrugs = true
-	count = 0
     DoScreenFadeOut(1000)
     Citizen.Wait(1000)
     SetPedMotionBlur(GetPlayerPed(-1), true)
@@ -617,21 +626,6 @@ AddEventHandler('esx_jk_drugs:restricted', function()
 		TriggerServerEvent('esx_jk_drugs:restrictedArea')
 	end
 end)
-
-function GetCoordZ(x, y)
-    local ped = GetPlayerPed(-1)
-    local coords = GetEntityCoords(ped)
-    local groundCheckHeights = { (GetGroundZFor_3dCoord(coords) - 1),  (GetGroundZFor_3dCoord(coords)),  (GetGroundZFor_3dCoord(coords) + 1) }
-
-    for i, height in ipairs(groundCheckHeights) do
-        local foundGround, z = GetGroundZFor_3dCoord(x, y, height)
-
-        if foundGround then
-            return z
-        end
-    end
-    return GetGroundZFor_3dCoord(coords)
-end
 
 -- Give Cops access to test kits
 
