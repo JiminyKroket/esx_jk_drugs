@@ -7,11 +7,10 @@ Config.ZoneSize     = {x = 1.0, y = 1.0, z = -1.0}
 Config.MarkerColor  = {r = 100, g = 204, b = 100}
 Config.ShowBlips	= true -- Ehh, hopefully self explanatory... but if not it shows the pictures on the map for you
 Config.ShowMarkers 	= false -- Ehh, hopefully self explanatory... but if not it shows the circles on the ground for you
-Config.MultPlant	= false -- Will give up to three of each product when a plant is picked
+Config.MultiPlant	= false -- Will give up to three of each product when a plant is picked
 
 --Cop Stuff--
 Config.GiveBlack = true -- Disable to give regular cash when selling drugs
-Config.ForceMulti	= false -- Force sellers to have to open the menu after every deal (chance to send notification)
 Config.EnableCops   = true -- Set true to send police notification (uses esx:notification)
 Config.UseESXPhone	= false -- Use ESXPhone/ALPhone instead of ESXNotification
 Config.UseGCPhone	= true -- Use GCphone instead of ESXNotification
@@ -37,36 +36,6 @@ Config.Delays = {
 	HeroineProcessing = 1000 * 10
 }
 
-Config.WeedDumpItems = {
-	marijuana = 25,
-	cannabis  = 1,
-	dabs	  = 120,
-}
-
-Config.CocaineDumpItems = {
-	cocaine = 95,
-	coca	= 5,
-}
-
-Config.MethDumpItems = {
-	meth = 135,
-	ephedra = 10,
-	ephedrine = 25,
-}
-
-Config.CrackDumpItems = {
-	crack = 135,
-}
-
-Config.OpiumDumpItems = {
-	opium = 75,
-	poppy = 10,
-}
-
-Config.HeroineDumpItems = {
-	heroine = 165
-}
-
 Config.FieldZones = {
 	WeedField = {coords = vector3(2224.2, 5566.53, 54.06)},
 	CocaineField = {coords = vector3(1849.8, 4914.2, 44.92)},
@@ -82,15 +51,6 @@ Config.ProcessZones = {
 	CrackProcessing = {coords = vector3(974.72, -100.91, 74.87), name = 'Lost MC Clubhouse', color = 72, sprite = 226, radius = 1.0},
 	PoppyProcessing ={coords = vector3(3559.76, 3674.54, 28.12), name = 'Humane Labs', color = 38, sprite = 499, radius = 1.0},
 	HeroineProcessing = {coords = vector3(1976.76, 3819.58, 33.45), name = 'Trevor\'s', color = 59, sprite = 388, radius = 1.0},
-}
-
-Config.DumpZones = {
-	WeedDump = {coords = vector3(-1172.02, -1571.98, 4.66), name = 'Smoke On The Water', color = 25, sprite = 140, radius = 1},
-	CocaineDump = {coords = vector3(-1366.66, 56.67, 54.1), name = 'Golf Club', color = 62, sprite = 109, radius = 1.0},
-	MethDump = {coords = vector3(-56.31, 6521.97, 31.49), name = 'Willie\'s Pharmacy', color = 49, sprite = 403, radius = 1.0},
-	HeroineDump = {coords = vector3(-431.3, -2442.74, 26.88), name = 'Frederick\'s Crane', color = 25, sprite = 68, radius = 1.0},
-	OpiumDump = {coords = vector3(2454.94, 4980.58, 46.82), name = 'O\'Neil Farm', color = 59, sprite = 387, radius = 1.0},
-	CrackDump = {coords = vector3(-4.88, -1227.61, 29.3), name = 'Homeless Hostel', color = 49, sprite = 456, radius = 1.0},
 }
 
 Config.Peds = {
