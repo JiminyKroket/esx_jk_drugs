@@ -1,6 +1,4 @@
 ESX = nil
-local menuOpen = false
-local wasOpen = false
 local count = 0
 
 Citizen.CreateThread(function()
@@ -54,14 +52,8 @@ Citizen.CreateThread(function()
         if Config.ShowMarkers then
 
             local coords = GetEntityCoords(GetPlayerPed(-1))
-
-            for k,v in pairs(Config.DumpZones) do
-                if GetDistanceBetweenCoords(coords, v.coords, true) < Config.DrawDistance then
-                    DrawMarker(Config.MarkerType, v.coords, 0.0, 0.0, 0.0, 0, 0.0, 0.0, Config.ZoneSize.x, Config.ZoneSize.y, Config.ZoneSize.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, false, false, false, false)
-                end
-            end
 			
-	    for k,v in pairs(Config.FieldZones) do
+			for k,v in pairs(Config.FieldZones) do
                 if GetDistanceBetweenCoords(coords, v.coords, true) < Config.DrawDistance then
                     DrawMarker(Config.MarkerType, v.coords, 0.0, 0.0, 0.0, 0, 0.0, 0.0, Config.ZoneSize.x, Config.ZoneSize.y, Config.ZoneSize.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, false, false, false, false)
                 end
@@ -79,10 +71,6 @@ end)
 Citizen.CreateThread(function()
 
     if Config.ShowBlips then
-        for k,v in pairs(Config.DumpZones) do
-            CreateBlipCircle(v.coords, v.name, v.radius, v.color, v.sprite)
-        end
-		
 		for k,v in pairs(Config.FieldZones) do
             CreateBlipCircle(v.coords, v.name, v.radius, v.color, v.sprite)
         end
